@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { NotificationService } from "@/lib/notification-service";
 import { prisma } from "@/lib/prisma";
-import { Appointment, SyncStatus, AppointmentStatus } from "@prisma/client";
+import {
+  Appointment,
+  SyncStatus,
+  AppointmentStatus,
+} from "@/lib/generated/prisma";
 
 // 🆕 Define a complete mock appointment type that includes all required fields
 type MockAppointment = Pick<

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { VisionPlusIntegration } from "@/lib/visionplus-integration";
 import { NotificationService } from "@/lib/notification-service";
-import { AppointmentStatus, Prisma } from "@prisma/client"; // 🆕 ADD Prisma import
+import { AppointmentStatus, Prisma } from "@/lib/generated/prisma";
 
 export async function POST(request: NextRequest) {
   try {
