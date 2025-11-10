@@ -1,4 +1,4 @@
-import { Appointment } from "@prisma/client";
+import { Appointment } from "@/lib/generated/prisma";
 import {
   EmailTemplate,
   EmailResult,

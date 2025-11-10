@@ -1,4 +1,4 @@
-import { Appointment } from "@prisma/client";
+import { Appointment } from "@/lib/generated/prisma";
 import {
   SmsResult,
   TwilioModule,
@@ -372,9 +372,7 @@ export class SMSService {
   /**
    * Bulk SMS for multiple appointments
    */
-  async sendBulkReminders(
-    appointments: Appointment[]
-  ): Promise<{
+  async sendBulkReminders(appointments: Appointment[]): Promise<{
     success: number;
     failed: number;
     details: Array<{
