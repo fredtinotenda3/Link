@@ -1,32 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import { NotificationService } from "@/lib/notification-service";
 import { prisma } from "@/lib/prisma";
-import {
-  Appointment,
-  SyncStatus,
-  AppointmentStatus,
-} from "@/lib/generated/prisma";
+import { Appointment, SyncStatus, AppointmentStatus } from "@prisma/client";
 
-// 🆕 Define a complete mock appointment type that includes all required fields
-type MockAppointment = Pick<
-  Appointment,
-  | "id"
-  | "patientName"
-  | "patientEmail"
-  | "patientPhone"
-  | "branch"
-  | "appointmentDate"
-  | "appointmentTime"
-  | "serviceType"
-  | "status"
-  | "syncStatus"
-  | "visionPlusId"
-  | "source"
-  | "patientDOB"
-  | "createdAt"
-  | "updatedAt"
-  | "syncedAt" // 🆕 ADD THIS MISSING FIELD
->;
+// 🆕 Define a proper interface for mock appointment data
+interface MockAppointment {
+  id: string;
+  patientName: string;
+  patientEmail: string | null;
+  patientPhone: string | null;
+  patientDOB: Date | null;
+  branch: string;
+  appointmentDate: Date;
+  appointmentTime: string;
+  serviceType: string;
+  status: AppointmentStatus;
+  syncStatus: SyncStatus;
+  visionPlusId: string | null;
+  source: string;
+  createdAt: Date;
+  updatedAt: Date;
+  syncedAt: Date | null;
+  manualSyncRequestedAt: Date | null;
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -114,12 +110,13 @@ export async function POST(request: NextRequest) {
           );
       }
     } else {
-      // Test with mock data - using proper type instead of any
+      // Test with mock data - using proper interface instead of Pick
       const mockAppointment: MockAppointment = {
         id: "test-" + Date.now(),
         patientName: "Test Patient",
         patientEmail: "test@example.com",
         patientPhone: "0771234567",
+        patientDOB: null,
         branch: "Robinson House",
         appointmentDate: new Date(),
         appointmentTime: "10:00 AM",
@@ -128,14 +125,14 @@ export async function POST(request: NextRequest) {
         syncStatus: SyncStatus.PENDING,
         visionPlusId: null,
         source: "WEBSITE",
-        patientDOB: null,
         createdAt: new Date(),
         updatedAt: new Date(),
-        syncedAt: null, // 🆕 ADD THIS MISSING FIELD
+        syncedAt: null,
+        manualSyncRequestedAt: null,
       };
 
       result = await notificationService.sendBookingConfirmation(
-        mockAppointment as Appointment // 🆕 ADD TYPE ASSERTION
+        mockAppointment
       );
     }
 

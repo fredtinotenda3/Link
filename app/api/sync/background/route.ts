@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { VisionPlusIntegration } from "@/lib/visionplus-integration";
-import { SyncStatus } from "@/lib/generated/prisma";
+import { SyncStatus } from "@prisma/client";
 
 // Define proper type for sync details
 interface SyncDetail {
