@@ -1,4 +1,4 @@
-import { Appointment } from "@/lib/generated/prisma";
+import { Appointment } from "@prisma/client"; // ✅ FIXED IMPORT
 import {
   EmailTemplate,
   EmailResult,
