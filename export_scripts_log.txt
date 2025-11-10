@@ -1,0 +1,7 @@
+﻿
+2025-11-10 09:48:11   Found 3 file(s) under scripts/
+2025-11-10 09:48:12   Read: scripts\check-config.js
+2025-11-10 09:48:12   Read: scripts\simple-test.js
+2025-11-10 09:48:12   Read: scripts\test-api.js
+2025-11-10 09:48:12   Wrote scripts_code.md  size: 4016 bytes
+2025-11-10 09:48:13  Done.

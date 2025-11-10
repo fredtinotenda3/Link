@@ -1,0 +1,19 @@
+﻿
+2025-11-10 09:45:34   Found 15 file(s) under app/
+2025-11-10 09:45:35   Read: app\admin\page.tsx
+2025-11-10 09:45:35   Read: app\api\appointments\[id]\status\route.ts
+2025-11-10 09:45:35   Read: app\api\appointments\route.ts
+2025-11-10 09:45:35   Read: app\api\debug-visionplus\route.ts
+2025-11-10 09:45:35   Read: app\api\discover\route.js
+2025-11-10 09:45:35   Read: app\api\sync\[id]\route.ts
+2025-11-10 09:45:35   Read: app\api\sync\background\route.ts
+2025-11-10 09:45:35   Read: app\api\test-notifications\route.ts
+2025-11-10 09:45:35   Read: app\api\test-visionplus\route.ts
+2025-11-10 09:45:35   Read: app\globals.css
+2025-11-10 09:45:35   Read: app\layout.tsx
+2025-11-10 09:45:35   Read: app\page.tsx
+2025-11-10 09:45:35   Read: app\test-integration\page.tsx
+2025-11-10 09:45:35   Read: app\test-notifications\page.tsx
+2025-11-10 09:45:35   Read: app\test-visionplus\page.tsx
+2025-11-10 09:45:35  ✅ Wrote app_code.md — size: 100009 bytes
+2025-11-10 09:45:37  Done.
