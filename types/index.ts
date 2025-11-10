@@ -15,6 +15,7 @@ export interface Appointment {
   createdAt: string;
   updatedAt: string;
   syncedAt?: string | null;
+  manualSyncRequestedAt?: string | null; // ✅ ADD THIS LINE
 }
 
 export interface StatusInfo {

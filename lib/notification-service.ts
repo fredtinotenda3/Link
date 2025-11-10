@@ -1,5 +1,5 @@
 // lib/notification-service.ts
-import { Appointment } from "@/lib/generated/prisma";
+import { Appointment } from "@prisma/client"; // ✅ FIXED IMPORT
 import { EmailService } from "./email-service";
 import { SMSService } from "./sms-service";
 
