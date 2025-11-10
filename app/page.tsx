@@ -30,6 +30,7 @@ export default function Home() {
             <div>🔬 Visual Field Tests</div>
             <div>👨‍👩‍👧‍👦 Family Eye Care</div>
             <div>🏥 Emergency Services</div>
+            <div>🏥 others..</div>
           </div>
         </div>
       </div>
