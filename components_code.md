@@ -274,7 +274,9 @@ export default function AppointmentsHistory({
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+// âœ… Specific constant imports
 import { BOOKING_BRANCHES, SERVICE_TYPES } from "@/constants/booking";
+// âœ… Specific type imports
 import { BookingBranch, ServiceType } from "@/types";
 
 interface BookingFormProps {
@@ -554,7 +556,9 @@ export default function BookingForm({ user }: BookingFormProps) {
 "use client";
 
 import { useState } from "react";
+// âœ… Specific constant imports
 import { FRAMES, LENSES, FRAME_CATEGORIES } from "@/constants/frames";
+// âœ… Specific type imports
 import { Frame, Lens, FrameCategoryInfo, FrameCategory } from "@/types";
 
 export default function FramesGallery() {

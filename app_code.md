@@ -4,14 +4,16 @@
 `$lang
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
+// âœ… Specific constant imports
+import { TEAM_MEMBERS } from "@/constants/team";
 import {
-  TEAM_MEMBERS,
   COMPANY_TIMELINE,
   COMPANY_VALUES,
-  CERTIFICATIONS,
-  COMPANY_STATS,
   MISSION_STATEMENT,
-} from "@/constants";
+  COMPANY_STATS,
+} from "@/constants/company";
+import { CERTIFICATIONS } from "@/constants/company"; // Certifications are in company constants
+// âœ… Specific type imports
 import { TeamMember, TimelineItem, CompanyValue } from "@/types";
 
 export default function About() {
@@ -240,7 +242,7 @@ export default function About() {
             <div className="bg-white/10 rounded-xl p-6 mb-8 border border-white/20">
               <div className="grid md:grid-cols-3 gap-4 text-sm">
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-[#00A6E6]">ðŸ‘ï¸â€ðŸ—¨ï¸</span>
+                  <span className="text-[#00A6E6]">ðŸ•ðŸ”„</span>
                   <span className="text-[#F2F5F9]">15+ Years Experience</span>
                 </div>
                 <div className="flex items-center justify-center gap-2">
@@ -248,7 +250,7 @@ export default function About() {
                   <span className="text-[#F2F5F9]">Same-Day Service</span>
                 </div>
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-[#00A6E6]">ðŸ’Ž</span>
+                  <span className="text-[#00A6E6]">ðŸ’¼</span>
                   <span className="text-[#F2F5F9]">Premium Quality</span>
                 </div>
               </div>
@@ -1473,14 +1475,44 @@ export async function GET(request: NextRequest) {
   app\api\auth\[...nextauth]\route.ts
 ===============================
 `$lang
-import NextAuth from "next-auth";
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import NextAuth, { AuthOptions } from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter"; // âœ… Use @auth/prisma-adapter
 import { prisma } from "@/lib/prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
+import { JWT } from "next-auth/jwt";
+import { Session, User } from "next-auth";
 
-export const authOptions = {
-  adapter: PrismaAdapter(prisma),
+// Extend built-in types
+declare module "next-auth" {
+  interface Session {
+    user: {
+      phone: string;
+      id: string;
+      firstName: string;
+      lastName: string;
+      email: string;
+    };
+  }
+
+  interface User {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string;
+    firstName: string;
+    lastName: string;
+  }
+}
+
+export const authOptions: AuthOptions = {
+  adapter: PrismaAdapter(prisma) as any,
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -1488,7 +1520,7 @@ export const authOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<User | null> {
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
@@ -1517,18 +1549,18 @@ export const authOptions = {
         return {
           id: user.id,
           email: user.email,
-          name: `${user.firstName} ${user.lastName}`,
           firstName: user.firstName,
           lastName: user.lastName,
+          name: `${user.firstName} ${user.lastName}`,
         };
       },
     }),
   ],
   session: {
-    strategy: "jwt" as const,
+    strategy: "jwt",
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: JWT; user?: User }) {
       if (user) {
         token.id = user.id;
         token.firstName = user.firstName;
@@ -1536,18 +1568,18 @@ export const authOptions = {
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: { session: Session; token: JWT }) {
       if (token) {
-        session.user.id = token.id as string;
-        session.user.firstName = token.firstName as string;
-        session.user.lastName = token.lastName as string;
+        session.user.id = token.id;
+        session.user.firstName = token.firstName;
+        session.user.lastName = token.lastName;
       }
       return session;
     },
   },
   pages: {
     signIn: "/auth/login",
-    signUp: "/auth/signup",
+    //signUp: "/auth/signup",
   },
 };
 
@@ -2103,6 +2135,7 @@ interface MockAppointment {
   updatedAt: Date;
   syncedAt: Date | null;
   manualSyncRequestedAt: Date | null;
+  userId: string | null; // âœ… ADD THIS MISSING FIELD
 }
 
 export async function GET(request: NextRequest) {
@@ -2210,6 +2243,7 @@ export async function POST(request: NextRequest) {
         updatedAt: new Date(),
         syncedAt: null,
         manualSyncRequestedAt: null,
+        userId: null, // âœ… ADD THIS MISSING FIELD
       };
 
       result = await notificationService.sendBookingConfirmation(
@@ -2436,14 +2470,14 @@ export default async function AppointmentsPage() {
     <div className="min-h-screen">
       <Navigation />
 
-      <section className="py-20 bg-gradient-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
+      <section className="py-20 bg-linear-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
         <div className="container-premium">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h1 className="text-5xl md:text-6xl font-black mb-6 leading-tight">
                 <span className="text-[#F2F5F9]">My</span>
                 <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A6E6] to-[#48CAE4]">
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-[#00A6E6] to-[#48CAE4]">
                   Appointments
                 </span>
               </h1>
@@ -2513,7 +2547,7 @@ export default function AuthLayout({
 ```
 
 ===============================
-  app\auth\login\page.tsx
+  app\auth\login\LoginForm.tsx
 ===============================
 `$lang
 "use client";
@@ -2521,9 +2555,13 @@ export default function AuthLayout({
 import { useState } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
+interface LoginFormProps {
+  message?: string | null;
+}
+
+export default function LoginForm({ message }: LoginFormProps) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -2531,8 +2569,6 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const message = searchParams.get("message");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -2549,9 +2585,8 @@ export default function LoginPage() {
       if (result?.error) {
         setError("Invalid email or password");
       } else {
-        // Redirect to booking page or previous page
-        const callbackUrl = searchParams.get("callbackUrl") || "/book";
-        router.push(callbackUrl);
+        // Redirect to booking page
+        router.push("/book");
       }
     } catch (error) {
       setError("An error occurred. Please try again.");
@@ -2631,7 +2666,7 @@ export default function LoginPage() {
 
       <div className="text-center">
         <p className="text-[#B9C4CC]">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link
             href="/auth/signup"
             className="text-[#00A6E6] hover:text-[#48CAE4] font-semibold transition-colors"
@@ -2641,6 +2676,53 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+```
+
+===============================
+  app\auth\login\page.tsx
+===============================
+`$lang
+"use client";
+
+import { Suspense } from "react";
+import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
+import LoginForm from "./LoginForm";
+
+// This component handles the search params with Suspense
+function LoginContent() {
+  const searchParams = useSearchParams();
+  const message = searchParams.get("message");
+
+  return <LoginForm message={message} />;
+}
+
+// Loading component for Suspense fallback
+function LoginLoading() {
+  return (
+    <div className="space-y-6">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold text-[#F2F5F9] mb-2">Welcome Back</h2>
+        <p className="text-[#B9C4CC]">Loading...</p>
+      </div>
+      <div className="animate-pulse space-y-4">
+        <div className="h-12 bg-white/5 rounded-lg"></div>
+        <div className="h-12 bg-white/5 rounded-lg"></div>
+        <div className="h-12 bg-white/5 rounded-lg"></div>
+      </div>
+    </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<LoginLoading />}>
+      <LoginContent />
+    </Suspense>
   );
 }
 
@@ -2712,6 +2794,7 @@ export default function SignupPage() {
       } else {
         setError(data.error || "Registration failed");
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       setError("An error occurred. Please try again.");
     } finally {
@@ -2919,7 +3002,10 @@ export default async function BookPage() {
 `$lang
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
-import { BRANCHES, BRANCH_FEATURES } from "@/constants";
+// âœ… Specific constant imports
+import { BRANCHES } from "@/constants/branches";
+import { BRANCH_FEATURES } from "@/constants/services"; // Branch features are in services constants
+// âœ… Specific type imports
 import { Branch, BranchFeature } from "@/types";
 
 export default function Branches() {
@@ -3053,7 +3139,7 @@ export default function Branches() {
                   {/* Operating Hours */}
                   <div className="border-t border-white/10 pt-4">
                     <p className="text-[#F2F5F9] font-medium mb-2">
-                      ðŸ•’ Operating Hours
+                      ðŸ• Operating Hours
                     </p>
                     <div className="space-y-1 text-sm">
                       <div className="flex justify-between">
@@ -3183,8 +3269,10 @@ export default function Branches() {
 ===============================
 `$lang
 import Navigation from "@/components/Navigation";
+// âœ… Specific constant imports
 import { BRANCHES } from "@/constants/branches";
 import { CONTACT_METHODS, FAQS } from "@/constants/contact";
+// âœ… Specific type imports
 import { Branch, ContactMethod, FAQ } from "@/types";
 
 export default function Contact() {
@@ -3415,7 +3503,7 @@ export default function Contact() {
 
                       <div className="border-t border-white/10 pt-3 mt-3">
                         <p className="text-[#F2F5F9] font-medium mb-2">
-                          ðŸ•’ Hours
+                          ðŸ• Hours
                         </p>
                         <div className="text-sm text-[#B9C4CC] space-y-1">
                           <div className="flex justify-between">
@@ -4043,8 +4131,10 @@ export default async function ProfilePage() {
 `$lang
 "use client";
 import Navigation from "@/components/Navigation";
+// âœ… Specific constant imports
 import { SERVICES, MEDICAL_AIDS, BRANCH_FEATURES } from "@/constants/services";
 import { TESTIMONIALS } from "@/constants/testimonials";
+// âœ… Specific type imports
 import { Service, Testimonial, BranchFeature } from "@/types";
 
 export default function Services() {
@@ -4499,7 +4589,7 @@ export default function IntegrationTestPage() {
           "Form Submission",
           "success",
           "âœ… Form submission test completed",
-          { result: formResult.result }
+          { result: JSON.stringify(formResult.result, null, 2) }
         );
       } else {
         addTestResult(

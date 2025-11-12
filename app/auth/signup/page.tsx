@@ -1,8 +1,10 @@
+// app/auth/signup/page.tsx
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -36,6 +38,7 @@ export default function SignupPage() {
     }
 
     try {
+      // Register the user
       const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
@@ -53,15 +56,35 @@ export default function SignupPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Redirect to login page with success message
-        router.push(
-          "/auth/login?message=Account created successfully. Please sign in."
+        console.log(
+          "✅ User registered successfully, attempting auto-login..."
         );
+
+        // Auto-login after successful registration
+        const signInResult = await signIn("credentials", {
+          email: formData.email,
+          password: formData.password,
+          redirect: false,
+        });
+
+        if (signInResult?.error) {
+          console.error("❌ Auto-login failed:", signInResult.error);
+          // If auto-login fails, redirect to login page with success message
+          router.push(
+            "/auth/login?message=Account created successfully. Please sign in."
+          );
+        } else {
+          console.log(
+            "✅ Auto-login successful, redirecting to booking page..."
+          );
+          // Successfully logged in, redirect to booking page
+          router.push("/book");
+        }
       } else {
         setError(data.error || "Registration failed");
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
+      console.error("❌ Registration error:", error);
       setError("An error occurred. Please try again.");
     } finally {
       setLoading(false);
