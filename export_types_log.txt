@@ -1,0 +1,21 @@
+﻿
+2025-11-12 11:47:01   Found 17 file(s) under types/
+2025-11-12 11:47:01   Read: types\api.ts
+2025-11-12 11:47:01   Read: types\appointment.ts
+2025-11-12 11:47:01   Read: types\auth.ts
+2025-11-12 11:47:01   Read: types\booking.ts
+2025-11-12 11:47:01   Read: types\branches.ts
+2025-11-12 11:47:01   Read: types\company.ts
+2025-11-12 11:47:01   Read: types\contact.ts
+2025-11-12 11:47:01   Read: types\email.ts
+2025-11-12 11:47:01   Read: types\frames.ts
+2025-11-12 11:47:01   Read: types\index.ts
+2025-11-12 11:47:01   Read: types\next-auth.d.ts
+2025-11-12 11:47:01   Read: types\notification.ts
+2025-11-12 11:47:01   Read: types\services.ts
+2025-11-12 11:47:01   Read: types\sms.ts
+2025-11-12 11:47:01   Read: types\team.ts
+2025-11-12 11:47:01   Read: types\testimonials.ts
+2025-11-12 11:47:01   Read: types\visionplus.ts
+2025-11-12 11:47:02   Wrote types_code.md  size: 15446 bytes
+2025-11-12 11:47:03  Done.

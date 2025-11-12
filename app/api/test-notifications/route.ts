@@ -22,6 +22,7 @@ interface MockAppointment {
   updatedAt: Date;
   syncedAt: Date | null;
   manualSyncRequestedAt: Date | null;
+  userId: string | null; // ✅ ADD THIS MISSING FIELD
 }
 
 export async function GET(request: NextRequest) {
@@ -129,6 +130,7 @@ export async function POST(request: NextRequest) {
         updatedAt: new Date(),
         syncedAt: null,
         manualSyncRequestedAt: null,
+        userId: null, // ✅ ADD THIS MISSING FIELD
       };
 
       result = await notificationService.sendBookingConfirmation(

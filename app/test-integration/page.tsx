@@ -134,7 +134,7 @@ export default function IntegrationTestPage() {
           "Form Submission",
           "success",
           "✅ Form submission test completed",
-          { result: formResult.result }
+          { result: JSON.stringify(formResult.result, null, 2) }
         );
       } else {
         addTestResult(

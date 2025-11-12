@@ -1,26 +1,26 @@
-// components/BookingForm.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+// ✅ Specific constant imports
+import { BOOKING_BRANCHES, SERVICE_TYPES } from "@/constants/booking";
+// ✅ Specific type imports
+import { BookingBranch, ServiceType } from "@/types";
 
-const branches = [
-  "Robinson House",
-  "Kensington",
-  "Honeydew Lifestyle Centre",
-  "Chipinge Branch",
-  "Chiredzi Branch",
-];
+interface BookingFormProps {
+  user?: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone?: string;
+  };
+}
 
-const serviceTypes = [
-  "Eye Test",
-  "Contact Lens Fitting",
-  "Contact Lens Aftercare",
-  "Dispensing Only",
-  "Low Vision",
-  "Visual Field Test",
-];
+export default function BookingForm({ user }: BookingFormProps) {
+  const { data: session } = useSession();
+  const currentUser = user || session?.user;
 
-export default function BookingForm() {
   const [formData, setFormData] = useState({
     patientName: "",
     patientEmail: "",
@@ -34,6 +34,18 @@ export default function BookingForm() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
+  // Fix: Use useEffect to set initial values after component mount
+  useEffect(() => {
+    if (currentUser) {
+      setFormData((prev) => ({
+        ...prev,
+        patientName: `${currentUser.firstName} ${currentUser.lastName}`,
+        patientEmail: currentUser.email || "",
+        patientPhone: currentUser.phone || "",
+      }));
+    }
+  }, [currentUser]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -45,18 +57,25 @@ export default function BookingForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          userId: currentUser?.id,
+        }),
       });
 
       const result = await response.json();
 
       if (response.ok) {
-        setMessage("✅ Appointment booked successfully!");
-        // Reset form
+        setMessage(
+          "✅ Appointment booked successfully! You will receive a confirmation shortly."
+        );
+        // Reset form but keep user info
         setFormData({
-          patientName: "",
-          patientEmail: "",
-          patientPhone: "",
+          patientName: currentUser
+            ? `${currentUser.firstName} ${currentUser.lastName}`
+            : "",
+          patientEmail: currentUser?.email || "",
+          patientPhone: currentUser?.phone || "",
           patientDOB: "",
           branch: "",
           appointmentDate: "",
@@ -83,16 +102,23 @@ export default function BookingForm() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">
-        Book Your Eye Appointment
-      </h2>
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-2xl font-bold text-[#F2F5F9] mb-2">
+          Book Your Eye Appointment
+        </h3>
+        <p className="text-[#B9C4CC]">
+          {currentUser
+            ? `Welcome, ${currentUser.firstName}! Your information has been pre-filled.`
+            : "Please fill in your details to book an appointment."}
+        </p>
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Patient Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[#F2F5F9] mb-1">
               Full Name *
             </label>
             <input
@@ -101,27 +127,30 @@ export default function BookingForm() {
               value={formData.patientName}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] placeholder-[#B9C4CC] focus:outline-none focus:border-[#00A6E6] transition-colors"
+              placeholder="Enter your full name"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
+            <label className="block text-sm font-medium text-[#F2F5F9] mb-1">
+              Email *
             </label>
             <input
               type="email"
               name="patientEmail"
               value={formData.patientEmail}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] placeholder-[#B9C4CC] focus:outline-none focus:border-[#00A6E6] transition-colors"
+              placeholder="Enter your email"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[#F2F5F9] mb-1">
               Phone Number
             </label>
             <input
@@ -129,12 +158,13 @@ export default function BookingForm() {
               name="patientPhone"
               value={formData.patientPhone}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] placeholder-[#B9C4CC] focus:outline-none focus:border-[#00A6E6] transition-colors"
+              placeholder="+263 XXX XXX XXX"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[#F2F5F9] mb-1">
               Date of Birth
             </label>
             <input
@@ -142,7 +172,7 @@ export default function BookingForm() {
               name="patientDOB"
               value={formData.patientDOB}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] placeholder-[#B9C4CC] focus:outline-none focus:border-[#00A6E6] transition-colors"
             />
           </div>
         </div>
@@ -150,7 +180,7 @@ export default function BookingForm() {
         {/* Appointment Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[#F2F5F9] mb-1">
               Branch *
             </label>
             <select
@@ -158,10 +188,10 @@ export default function BookingForm() {
               value={formData.branch}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] focus:outline-none focus:border-[#00A6E6] transition-colors"
             >
               <option value="">Select a branch</option>
-              {branches.map((branch) => (
+              {BOOKING_BRANCHES.map((branch: BookingBranch) => (
                 <option key={branch} value={branch}>
                   {branch}
                 </option>
@@ -170,7 +200,7 @@ export default function BookingForm() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[#F2F5F9] mb-1">
               Service Type *
             </label>
             <select
@@ -178,10 +208,10 @@ export default function BookingForm() {
               value={formData.serviceType}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] focus:outline-none focus:border-[#00A6E6] transition-colors"
             >
               <option value="">Select a service</option>
-              {serviceTypes.map((service) => (
+              {SERVICE_TYPES.map((service: ServiceType) => (
                 <option key={service} value={service}>
                   {service}
                 </option>
@@ -192,7 +222,7 @@ export default function BookingForm() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[#F2F5F9] mb-1">
               Appointment Date *
             </label>
             <input
@@ -202,12 +232,12 @@ export default function BookingForm() {
               onChange={handleChange}
               required
               min={new Date().toISOString().split("T")[0]}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] focus:outline-none focus:border-[#00A6E6] transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[#F2F5F9] mb-1">
               Preferred Time *
             </label>
             <input
@@ -216,7 +246,7 @@ export default function BookingForm() {
               value={formData.appointmentTime}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] focus:outline-none focus:border-[#00A6E6] transition-colors"
             />
           </div>
         </div>
@@ -224,17 +254,17 @@ export default function BookingForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-400"
+          className="w-full btn-primary py-3 text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? "Booking..." : "Book Appointment"}
         </button>
 
         {message && (
           <div
-            className={`p-3 rounded-md ${
+            className={`p-4 rounded-lg ${
               message.includes("✅")
-                ? "bg-green-100 text-green-800"
-                : "bg-red-100 text-red-800"
+                ? "bg-green-500/10 border border-green-500/20 text-green-400"
+                : "bg-red-500/10 border border-red-500/20 text-red-400"
             }`}
           >
             {message}

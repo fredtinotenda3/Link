@@ -1,5 +1,9 @@
 ﻿
-2025-11-10 11:49:20   Found  file(s) under components/
-2025-11-10 11:49:20   Read: components\BookingForm.tsx
-2025-11-10 11:49:20   Wrote components_code.md  size: 7839 bytes
-2025-11-10 11:49:22  Done.
+2025-11-12 11:45:04   Found 5 file(s) under components/
+2025-11-12 11:45:04   Read: components\AppointmentsHistory.tsx
+2025-11-12 11:45:04   Read: components\BookingForm.tsx
+2025-11-12 11:45:04   Read: components\FramesGallery.tsx
+2025-11-12 11:45:04   Read: components\Navigation.tsx
+2025-11-12 11:45:04   Read: components\ProfileActions.tsx
+2025-11-12 11:45:04   Wrote components_code.md  size: 30245 bytes
+2025-11-12 11:45:06  Done.

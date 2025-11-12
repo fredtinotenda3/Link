@@ -1,7 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  // Remove the custom output line or comment it out
-  // output   = "../lib/generated/prisma"
 }
 
 datasource db {
@@ -9,6 +7,69 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  firstName     String
+  lastName      String
+  phone         String?
+  password      String?   // Nullable for OAuth users
+  emailVerified DateTime?
+  
+  // Auth relationships
+  accounts      Account[]
+  sessions      Session[]
+
+  // Link to appointments
+  appointments  Appointment[]
+
+  // Timestamps
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// Your existing Appointment model
 model Appointment {
   id            String   @id @default(cuid())
   patientName   String
@@ -27,10 +88,15 @@ model Appointment {
   visionPlusId  String?
   syncStatus    SyncStatus @default(PENDING)
 
+  // Link to user (if authenticated)
+  userId        String?
+
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
   syncedAt            DateTime?
   manualSyncRequestedAt DateTime?
+
+  user User? @relation(fields: [userId], references: [id])
 
   @@map("appointments")
 }

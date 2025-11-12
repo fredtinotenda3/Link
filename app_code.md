@@ -1,4 +1,282 @@
 ﻿===============================
+  app\about\page.tsx
+===============================
+`$lang
+import Link from "next/link";
+import Navigation from "@/components/Navigation";
+import {
+  TEAM_MEMBERS,
+  COMPANY_TIMELINE,
+  COMPANY_VALUES,
+  CERTIFICATIONS,
+  COMPANY_STATS,
+  MISSION_STATEMENT,
+} from "@/constants";
+import { TeamMember, TimelineItem, CompanyValue } from "@/types";
+
+export default function About() {
+  return (
+    <div className="min-h-screen">
+      <Navigation />
+
+      {/* Hero Section */}
+      <section className="py-20 bg-linear-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
+        <div className="container-premium">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
+              <span className="text-[#F2F5F9]">Our Story of</span>
+              <br />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#00A6E6] to-[#48CAE4]">
+                Vision & Care
+              </span>
+            </h1>
+
+            <p className="text-xl md:text-2xl text-[#B9C4CC] mb-8 leading-relaxed">
+              For over 15 years, Link Optical has been transforming vision and
+              changing lives across Zimbabwe through premium eye care
+              that&apos;s accessible to everyone.
+            </p>
+
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#00A6E6]">
+                  {COMPANY_STATS.yearsExperience}
+                </div>
+                <div className="text-sm text-[#B9C4CC]">Years Experience</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#00A6E6]">
+                  {COMPANY_STATS.patientsServed}
+                </div>
+                <div className="text-sm text-[#B9C4CC]">Patients Served</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#00A6E6]">
+                  {COMPANY_STATS.branches}
+                </div>
+                <div className="text-sm text-[#B9C4CC]">Branches</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#00A6E6]">
+                  {COMPANY_STATS.sameDayService}
+                </div>
+                <div className="text-sm text-[#B9C4CC]">Day Service</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Story Timeline */}
+      <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#0E2433]">
+        <div className="container-premium">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Our Journey of Excellence
+            </h2>
+            <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
+              From humble beginnings to becoming a trusted name in Zimbabwean
+              eye care
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            {COMPANY_TIMELINE.map((item: TimelineItem, index) => (
+              <div key={index} className="flex gap-8 mb-12 last:mb-0">
+                {/* Year */}
+                <div className="shrink-0 w-24">
+                  <div className="bg-[#00A6E6] text-white rounded-lg py-2 px-4 text-center">
+                    <span className="font-bold text-lg">{item.year}</span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="flex-1">
+                  <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                    <h3 className="text-xl font-bold text-[#F2F5F9] mb-3">
+                      {item.title}
+                    </h3>
+                    <p className="text-[#B9C4CC] leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Mission & Values */}
+      <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#002851]">
+        <div className="container-premium">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Our Mission & Values
+            </h2>
+            <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
+              Guided by our commitment to excellence and accessibility in eye
+              care
+            </p>
+          </div>
+
+          {/* Mission Statement */}
+          <div className="bg-white/5 rounded-2xl p-8 border border-white/10 text-center mb-16 max-w-4xl mx-auto">
+            <h3 className="text-2xl md:text-3xl font-bold text-[#00A6E6] mb-6">
+              {MISSION_STATEMENT.title}
+            </h3>
+            <p className="text-lg text-[#B9C4CC] leading-relaxed">
+              {MISSION_STATEMENT.description}
+            </p>
+          </div>
+
+          {/* Values Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {COMPANY_VALUES.map((value: CompanyValue, index) => (
+              <div
+                key={index}
+                className="text-center p-6 bg-white/5 rounded-xl border border-white/10"
+              >
+                <div className="text-3xl mb-4">{value.icon}</div>
+                <h3 className="text-lg font-bold text-[#F2F5F9] mb-3">
+                  {value.title}
+                </h3>
+                <p className="text-[#B9C4CC] text-sm">{value.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Meet the Team */}
+      <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#0E2433]">
+        <div className="container-premium">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Meet Our Leadership Team
+            </h2>
+            <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
+              Experienced professionals dedicated to your vision health
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {TEAM_MEMBERS.map((member: TeamMember) => (
+              <div key={member.id} className="text-center">
+                {/* Team Member Photo */}
+                <div className="w-32 h-32 bg-linear-to-br from-[#0077B6] to-[#48CAE4] rounded-full mx-auto mb-6 flex items-center justify-center">
+                  <span className="text-white text-sm font-medium text-center">
+                    ðŸ‘¨â€âš•ï¸
+                    <br />
+                    <span className="text-xs">Photo</span>
+                  </span>
+                </div>
+
+                <h3 className="text-xl font-bold text-[#F2F5F9] mb-2">
+                  {member.name}
+                </h3>
+                <p className="text-[#00A6E6] font-semibold mb-4">
+                  {member.role}
+                </p>
+
+                <p className="text-[#B9C4CC] text-sm mb-4 leading-relaxed">
+                  {member.bio}
+                </p>
+
+                <div className="space-y-2">
+                  {member.expertise.map((skill, index) => (
+                    <span
+                      key={index}
+                      className="block bg-white/5 text-[#B9C4CC] text-xs px-3 py-1 rounded border border-white/10"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Certifications & Trust */}
+      <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#002851]">
+        <div className="container-premium">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Trusted & Certified
+            </h2>
+            <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
+              Committed to the highest standards of professional eye care
+            </p>
+          </div>
+
+          <div className="bg-white/5 rounded-2xl p-8 border border-white/10 max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {CERTIFICATIONS.map((cert, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  <span className="text-[#00A6E6]">âœ…</span>
+                  <span className="text-[#F2F5F9] font-medium">{cert}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section - Keep as is since it's mostly UI */}
+      <section className="py-20 bg-linear-to-r from-[#001F3F] to-[#0077B6]">
+        <div className="container-premium">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Experience Our Difference
+            </h2>
+            <p className="text-xl text-[#B9C4CC] mb-8">
+              Join thousands of satisfied patients who trust Link Optical with
+              their vision care
+            </p>
+
+            <div className="bg-white/10 rounded-xl p-6 mb-8 border border-white/20">
+              <div className="grid md:grid-cols-3 gap-4 text-sm">
+                <div className="flex items-center justify-center gap-2">
+                  <span className="text-[#00A6E6]">ðŸ‘ï¸â€ðŸ—¨ï¸</span>
+                  <span className="text-[#F2F5F9]">15+ Years Experience</span>
+                </div>
+                <div className="flex items-center justify-center gap-2">
+                  <span className="text-[#00A6E6]">âš¡</span>
+                  <span className="text-[#F2F5F9]">Same-Day Service</span>
+                </div>
+                <div className="flex items-center justify-center gap-2">
+                  <span className="text-[#00A6E6]">ðŸ’Ž</span>
+                  <span className="text-[#F2F5F9]">Premium Quality</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="btn-primary text-lg px-8 py-4">
+                Book Your Appointment
+              </button>
+              <button className="btn-secondary text-lg px-8 py-4">
+                Visit Our Branches
+              </button>
+            </div>
+
+            <p className="text-[#B9C4CC] text-sm mt-4">
+              Family-owned since 2008 â€¢ Committed to Zimbabwe â€¢ Quality you can
+              trust
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+```
+
+===============================
   app\admin\page.tsx
 ===============================
 `$lang
@@ -1135,6 +1413,219 @@ export async function GET(request: NextRequest) {
 ```
 
 ===============================
+  app\api\appointments\user\route.ts
+===============================
+`$lang
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { prisma } from "@/lib/prisma";
+
+export async function GET(request: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.email) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Get user's appointments
+    const appointments = await prisma.appointment.findMany({
+      where: {
+        patientEmail: session.user.email,
+      },
+      orderBy: {
+        appointmentDate: "desc",
+      },
+      select: {
+        id: true,
+        patientName: true,
+        patientEmail: true,
+        patientPhone: true,
+        branch: true,
+        appointmentDate: true,
+        appointmentTime: true,
+        serviceType: true,
+        status: true,
+        syncStatus: true,
+        visionPlusId: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      appointments,
+    });
+  } catch (error) {
+    console.error("Get user appointments error:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch appointments" },
+      { status: 500 }
+    );
+  }
+}
+
+```
+
+===============================
+  app\api\auth\[...nextauth]\route.ts
+===============================
+`$lang
+import NextAuth from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { prisma } from "@/lib/prisma";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
+
+export const authOptions = {
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    CredentialsProvider({
+      name: "credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
+
+        // Find user by email
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
+
+        if (!user || !user.password) {
+          return null;
+        }
+
+        // Verify password
+        const isPasswordValid = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
+
+        if (!isPasswordValid) {
+          return null;
+        }
+
+        return {
+          id: user.id,
+          email: user.email,
+          name: `${user.firstName} ${user.lastName}`,
+          firstName: user.firstName,
+          lastName: user.lastName,
+        };
+      },
+    }),
+  ],
+  session: {
+    strategy: "jwt" as const,
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.firstName = user.firstName;
+        token.lastName = user.lastName;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id as string;
+        session.user.firstName = token.firstName as string;
+        session.user.lastName = token.lastName as string;
+      }
+      return session;
+    },
+  },
+  pages: {
+    signIn: "/auth/login",
+    signUp: "/auth/signup",
+  },
+};
+
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };
+
+```
+
+===============================
+  app\api\auth\register\route.ts
+===============================
+`$lang
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import bcrypt from "bcryptjs";
+
+export async function POST(request: NextRequest) {
+  try {
+    const { firstName, lastName, email, phone, password } =
+      await request.json();
+
+    // Validate required fields
+    if (!firstName || !lastName || !email || !password) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
+    // Check if user already exists
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      return NextResponse.json(
+        { error: "User with this email already exists" },
+        { status: 400 }
+      );
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    // Create user
+    const user = await prisma.user.create({
+      data: {
+        firstName,
+        lastName,
+        email,
+        phone: phone || null,
+        password: hashedPassword,
+      },
+    });
+
+    // Return user without password
+    const { password: _, ...userWithoutPassword } = user;
+
+    return NextResponse.json(
+      {
+        message: "User created successfully",
+        user: userWithoutPassword,
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Registration error:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+
+```
+
+===============================
   app\api\debug-visionplus\route.ts
 ===============================
 `$lang
@@ -1926,34 +2417,1356 @@ export async function POST(request: NextRequest) {
 ```
 
 ===============================
+  app\appointments\page.tsx
+===============================
+`$lang
+import { getCurrentUser } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import Navigation from "@/components/Navigation";
+import AppointmentsHistory from "@/components/AppointmentsHistory";
+
+export default async function AppointmentsPage() {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect("/auth/login");
+  }
+
+  return (
+    <div className="min-h-screen">
+      <Navigation />
+
+      <section className="py-20 bg-gradient-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
+        <div className="container-premium">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h1 className="text-5xl md:text-6xl font-black mb-6 leading-tight">
+                <span className="text-[#F2F5F9]">My</span>
+                <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A6E6] to-[#48CAE4]">
+                  Appointments
+                </span>
+              </h1>
+              <p className="text-xl text-[#B9C4CC]">
+                View and manage your appointment history with Link Optical
+              </p>
+            </div>
+
+            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+              <AppointmentsHistory userId={user.id} />
+            </div>
+
+            {/* Quick Actions Footer */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              <a href="/book" className="btn-primary">
+                ðŸ“… Book New Appointment
+              </a>
+              <a href="/profile" className="btn-secondary">
+                ðŸ‘¤ Back to Profile
+              </a>
+              <a href="/services" className="btn-secondary">
+                ðŸ” Browse Services
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+```
+
+===============================
+  app\auth\layout.tsx
+===============================
+`$lang
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
+      <div className="flex items-center justify-center min-h-screen py-8">
+        <div className="w-full max-w-md">
+          {/* Logo */}
+          <div className="text-center mb-8">
+            <div className="flex items-center justify-center space-x-3 mb-4">
+              <div className="w-12 h-12 bg-[#00A6E6] rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-xl">L</span>
+              </div>
+            </div>
+            <h1 className="text-2xl font-bold text-[#F2F5F9]">Link Optical</h1>
+          </div>
+
+          {/* Auth Content */}
+          <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10 shadow-2xl">
+            {children}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+```
+
+===============================
+  app\auth\login\page.tsx
+===============================
+`$lang
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
+
+export default function LoginPage() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const message = searchParams.get("message");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    try {
+      const result = await signIn("credentials", {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        setError("Invalid email or password");
+      } else {
+        // Redirect to booking page or previous page
+        const callbackUrl = searchParams.get("callbackUrl") || "/book";
+        router.push(callbackUrl);
+      }
+    } catch (error) {
+      setError("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold text-[#F2F5F9] mb-2">Welcome Back</h2>
+        <p className="text-[#B9C4CC]">Sign in to your account</p>
+      </div>
+
+      {message && (
+        <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+          <p className="text-green-400 text-sm">{message}</p>
+        </div>
+      )}
+
+      {error && (
+        <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
+          <p className="text-red-400 text-sm">{error}</p>
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-[#F2F5F9] mb-2">
+            Email Address
+          </label>
+          <input
+            type="email"
+            required
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] placeholder-[#B9C4CC] focus:outline-none focus:border-[#00A6E6] transition-colors"
+            placeholder="Enter your email"
+          />
+        </div>
+
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <label className="block text-sm font-medium text-[#F2F5F9]">
+              Password
+            </label>
+            <Link
+              href="/auth/forgot-password"
+              className="text-sm text-[#00A6E6] hover:text-[#48CAE4] transition-colors"
+            >
+              Forgot password?
+            </Link>
+          </div>
+          <input
+            type="password"
+            required
+            value={formData.password}
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
+            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] placeholder-[#B9C4CC] focus:outline-none focus:border-[#00A6E6] transition-colors"
+            placeholder="Enter your password"
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full btn-primary py-3 text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {loading ? "Signing In..." : "Sign In"}
+        </button>
+      </form>
+
+      <div className="text-center">
+        <p className="text-[#B9C4CC]">
+          Don't have an account?{" "}
+          <Link
+            href="/auth/signup"
+            className="text-[#00A6E6] hover:text-[#48CAE4] font-semibold transition-colors"
+          >
+            Sign up
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+```
+
+===============================
+  app\auth\signup\page.tsx
+===============================
+`$lang
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+export default function SignupPage() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    // Validation
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Redirect to login page with success message
+        router.push(
+          "/auth/login?message=Account created successfully. Please sign in."
+        );
+      } else {
+        setError(data.error || "Registration failed");
+      }
+    } catch (error) {
+      setError("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold text-[#F2F5F9] mb-2">
+          Create Account
+        </h2>
+        <p className="text-[#B9C4CC]">Join thousands of satisfied patients</p>
+      </div>
+
+      {error && (
+        <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4">
+          <p className="text-red-400 text-sm">{error}</p>
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-[#F2F5F9] mb-2">
+              First Name *
+            </label>
+            <input
+              type="text"
+              required
+              value={formData.firstName}
+              onChange={(e) =>
+                setFormData({ ...formData, firstName: e.target.value })
+              }
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] placeholder-[#B9C4CC] focus:outline-none focus:border-[#00A6E6] transition-colors"
+              placeholder="First name"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-[#F2F5F9] mb-2">
+              Last Name *
+            </label>
+            <input
+              type="text"
+              required
+              value={formData.lastName}
+              onChange={(e) =>
+                setFormData({ ...formData, lastName: e.target.value })
+              }
+              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] placeholder-[#B9C4CC] focus:outline-none focus:border-[#00A6E6] transition-colors"
+              placeholder="Last name"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-[#F2F5F9] mb-2">
+            Email Address *
+          </label>
+          <input
+            type="email"
+            required
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] placeholder-[#B9C4CC] focus:outline-none focus:border-[#00A6E6] transition-colors"
+            placeholder="Enter your email"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-[#F2F5F9] mb-2">
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            value={formData.phone}
+            onChange={(e) =>
+              setFormData({ ...formData, phone: e.target.value })
+            }
+            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] placeholder-[#B9C4CC] focus:outline-none focus:border-[#00A6E6] transition-colors"
+            placeholder="+263 XXX XXX XXX"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-[#F2F5F9] mb-2">
+            Password *
+          </label>
+          <input
+            type="password"
+            required
+            minLength={6}
+            value={formData.password}
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
+            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] placeholder-[#B9C4CC] focus:outline-none focus:border-[#00A6E6] transition-colors"
+            placeholder="Create a password (min. 6 characters)"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-[#F2F5F9] mb-2">
+            Confirm Password *
+          </label>
+          <input
+            type="password"
+            required
+            value={formData.confirmPassword}
+            onChange={(e) =>
+              setFormData({ ...formData, confirmPassword: e.target.value })
+            }
+            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] placeholder-[#B9C4CC] focus:outline-none focus:border-[#00A6E6] transition-colors"
+            placeholder="Confirm your password"
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full btn-primary py-3 text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {loading ? "Creating Account..." : "Create Account"}
+        </button>
+      </form>
+
+      <div className="text-center">
+        <p className="text-[#B9C4CC]">
+          Already have an account?{" "}
+          <Link
+            href="/auth/login"
+            className="text-[#00A6E6] hover:text-[#48CAE4] font-semibold transition-colors"
+          >
+            Sign in
+          </Link>
+        </p>
+      </div>
+
+      {/* Terms Notice */}
+      <p className="text-xs text-[#B9C4CC] text-center">
+        By creating an account, you agree to our Terms of Service and Privacy
+        Policy
+      </p>
+    </div>
+  );
+}
+
+```
+
+===============================
+  app\book\page.tsx
+===============================
+`$lang
+import { getCurrentUser } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import Navigation from "@/components/Navigation";
+import BookingForm from "@/components/BookingForm";
+
+export default async function BookPage() {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect("/auth/login?callbackUrl=/book");
+  }
+
+  return (
+    <div className="min-h-screen">
+      <Navigation />
+
+      <section className="py-20 bg-gradient-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
+        <div className="container-premium">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h1 className="text-5xl md:text-6xl font-black mb-6 leading-tight">
+                <span className="text-[#F2F5F9]">Book Your</span>
+                <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A6E6] to-[#48CAE4]">
+                  Appointment
+                </span>
+              </h1>
+              <p className="text-xl text-[#B9C4CC]">
+                Welcome back, {user.firstName}! Ready to schedule your eye care
+                appointment?
+              </p>
+            </div>
+
+            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+              <BookingForm user={user} />
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+```
+
+===============================
+  app\branches\page.tsx
+===============================
+`$lang
+import Link from "next/link";
+import Navigation from "@/components/Navigation";
+import { BRANCHES, BRANCH_FEATURES } from "@/constants";
+import { Branch, BranchFeature } from "@/types";
+
+export default function Branches() {
+  return (
+    <div className="min-h-screen">
+      <Navigation />
+
+      {/* Hero Section */}
+      <section className="py-20 bg-linear-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
+        <div className="container-premium">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
+              <span className="text-[#F2F5F9]">Find Your Nearest</span>
+              <br />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#00A6E6] to-[#48CAE4]">
+                Link Optical
+              </span>
+            </h1>
+
+            <p className="text-xl md:text-2xl text-[#B9C4CC] mb-8 leading-relaxed">
+              Same premium eye care, five convenient locations across Zimbabwe.
+              Experience expert service and same-day spectacles wherever you
+              are.
+            </p>
+
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#00A6E6]">5</div>
+                <div className="text-sm text-[#B9C4CC]">Branches</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#00A6E6]">15+</div>
+                <div className="text-sm text-[#B9C4CC]">Years Serving</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#00A6E6]">Same</div>
+                <div className="text-sm text-[#B9C4CC]">Day Service</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#00A6E6]">All</div>
+                <div className="text-sm text-[#B9C4CC]">Medical Aids</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Branch Features */}
+      <section className="py-16 bg-linear-to-b from-[#001F3F] to-[#0E2433]">
+        <div className="container-premium">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Premium Care, Every Location
+            </h2>
+            <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
+              The same high-quality service, expert staff, and advanced
+              technology at all our branches
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {BRANCH_FEATURES.map((feature: BranchFeature, index) => (
+              <div
+                key={index}
+                className="text-center p-6 bg-white/5 rounded-xl border border-white/10"
+              >
+                <div className="text-3xl mb-4">{feature.icon}</div>
+                <h3 className="text-lg font-bold text-[#F2F5F9] mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-[#B9C4CC] text-sm">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Branches Grid */}
+      <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#002851]">
+        <div className="container-premium">
+          <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
+            {BRANCHES.map((branch: Branch) => (
+              <div key={branch.id} className="card-premium group">
+                {/* Branch Header */}
+                <div className="mb-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h3 className="text-2xl font-bold text-[#F2F5F9] mb-1">
+                        {branch.name}
+                      </h3>
+                      <p className="text-[#00A6E6] font-semibold">
+                        {branch.type}
+                      </p>
+                    </div>
+                    <span className="bg-[#00A6E6] text-white text-xs px-2 py-1 rounded-full">
+                      {branch.id === 1 ? "MAIN LAB" : "BRANCH"}
+                    </span>
+                  </div>
+
+                  {/* Branch Image Placeholder */}
+                  <div className="w-full h-48 bg-linear-to-br from-[#0077B6] to-[#48CAE4] rounded-xl mb-4 flex items-center justify-center">
+                    <span className="text-white text-sm font-medium text-center">
+                      ðŸ“ {branch.name}
+                      <br />
+                      <span className="text-xs opacity-80">
+                        Branch Location
+                      </span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* Contact Information */}
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <span className="text-[#00A6E6] mt-1">ðŸ“</span>
+                    <div>
+                      <p className="text-[#F2F5F9] font-medium">Address</p>
+                      <p className="text-[#B9C4CC] text-sm">{branch.address}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <span className="text-[#00A6E6] mt-1">ðŸ“ž</span>
+                    <div>
+                      <p className="text-[#F2F5F9] font-medium">Phone</p>
+                      <p className="text-[#B9C4CC] text-sm">{branch.phone}</p>
+                    </div>
+                  </div>
+
+                  {/* Operating Hours */}
+                  <div className="border-t border-white/10 pt-4">
+                    <p className="text-[#F2F5F9] font-medium mb-2">
+                      ðŸ•’ Operating Hours
+                    </p>
+                    <div className="space-y-1 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-[#B9C4CC]">Mon - Fri:</span>
+                        <span className="text-[#F2F5F9]">
+                          {branch.hours.weekdays}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-[#B9C4CC]">Saturday:</span>
+                        <span className="text-[#F2F5F9]">
+                          {branch.hours.saturday}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-[#B9C4CC]">Sunday:</span>
+                        <span className="text-[#F2F5F9]">
+                          {branch.hours.sunday}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Services */}
+                  <div className="border-t border-white/10 pt-4">
+                    <p className="text-[#F2F5F9] font-medium mb-2">
+                      ðŸ‘¨â€âš•ï¸ Services Available
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {branch.services.map((service, index) => (
+                        <span
+                          key={index}
+                          className="bg-white/5 text-[#B9C4CC] text-xs px-2 py-1 rounded border border-white/10"
+                        >
+                          {service}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Features */}
+                  <div className="border-t border-white/10 pt-4">
+                    <p className="text-[#F2F5F9] font-medium mb-2">
+                      âœ¨ Branch Features
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {branch.features.map((feature, index) => (
+                        <span
+                          key={index}
+                          className="bg-[#00A6E6]/10 text-[#00A6E6] text-xs px-2 py-1 rounded"
+                        >
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* CTA Buttons */}
+                  <div className="flex gap-3 pt-4">
+                    <button className="flex-1 btn-primary text-sm py-2">
+                      Book at {branch.name}
+                    </button>
+                    <button className="btn-secondary text-sm py-2 px-4">
+                      Directions
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-linear-to-r from-[#001F3F] to-[#0077B6]">
+        <div className="container-premium">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Visit Us Today
+            </h2>
+            <p className="text-xl text-[#B9C4CC] mb-8">
+              Experience the Link Optical difference at a branch near you. Same
+              premium care, same expert service, wherever you are in Zimbabwe.
+            </p>
+
+            <div className="bg-white/10 rounded-xl p-6 mb-8 border border-white/20">
+              <div className="grid md:grid-cols-3 gap-4 text-sm">
+                <div className="flex items-center justify-center gap-2">
+                  <span className="text-[#00A6E6]">âš¡</span>
+                  <span className="text-[#F2F5F9]">Same-Day Service</span>
+                </div>
+                <div className="flex items-center justify-center gap-2">
+                  <span className="text-[#00A6E6]">ðŸ‘¨â€âš•ï¸</span>
+                  <span className="text-[#F2F5F9]">Expert Optometrists</span>
+                </div>
+                <div className="flex items-center justify-center gap-2">
+                  <span className="text-[#00A6E6]">ðŸ’³</span>
+                  <span className="text-[#F2F5F9]">Medical Aid Accepted</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="btn-primary text-lg px-8 py-4">
+                ðŸ“… Book Appointment
+              </button>
+              <button className="btn-secondary text-lg px-8 py-4">
+                ðŸ“ž Call Nearest Branch
+              </button>
+            </div>
+
+            <p className="text-[#B9C4CC] text-sm mt-4">
+              Walk-ins welcome â€¢ Free consultations â€¢ Family-friendly â€¢
+              Wheelchair accessible
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+```
+
+===============================
+  app\contact\page.tsx
+===============================
+`$lang
+import Navigation from "@/components/Navigation";
+import { BRANCHES } from "@/constants/branches";
+import { CONTACT_METHODS, FAQS } from "@/constants/contact";
+import { Branch, ContactMethod, FAQ } from "@/types";
+
+export default function Contact() {
+  return (
+    <div className="min-h-screen">
+      <Navigation />
+
+      {/* Hero Section */}
+      <section className="py-20 bg-linear-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
+        <div className="container-premium">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
+              <span className="text-[#F2F5F9]">Get In</span>
+              <br />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#00A6E6] to-[#48CAE4]">
+                Touch
+              </span>
+            </h1>
+
+            <p className="text-xl md:text-2xl text-[#B9C4CC] mb-8 leading-relaxed">
+              We&apos;re here to help with all your eye care needs. Reach out to
+              us through any channel and experience our commitment to
+              exceptional service.
+            </p>
+
+            {/* Quick Contact Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#00A6E6]">5</div>
+                <div className="text-sm text-[#B9C4CC]">Branches</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#00A6E6]">24h</div>
+                <div className="text-sm text-[#B9C4CC]">Response Time</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#00A6E6]">All</div>
+                <div className="text-sm text-[#B9C4CC]">Medical Aids</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#00A6E6]">
+                  Walk-ins
+                </div>
+                <div className="text-sm text-[#B9C4CC]">Welcome</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Methods */}
+      <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#0E2433]">
+        <div className="container-premium">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Multiple Ways to Connect
+            </h2>
+            <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
+              Choose the method that works best for you. We&apos;re ready to
+              assist.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {CONTACT_METHODS.map((method: ContactMethod, index) => (
+              <div
+                key={index}
+                className="text-center p-6 bg-white/5 rounded-xl border border-white/10 group hover:bg-white/10 transition-all"
+              >
+                <div className="text-3xl mb-4">{method.icon}</div>
+                <h3 className="text-lg font-bold text-[#F2F5F9] mb-2">
+                  {method.title}
+                </h3>
+                <p className="text-[#B9C4CC] text-sm mb-3">
+                  {method.description}
+                </p>
+                <p className="text-[#00A6E6] font-semibold text-sm mb-4">
+                  {method.details}
+                </p>
+                <a
+                  href={method.action}
+                  className="btn-primary text-sm py-2 px-4 inline-block"
+                >
+                  {method.cta}
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Form & Branch Info */}
+      <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#002851]">
+        <div className="container-premium">
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#F2F5F9]">
+                Send Us a Message
+              </h2>
+              <p className="text-[#B9C4CC] mb-8">
+                Have questions about our services? Need help with an
+                appointment? Fill out the form below and we&apos;ll get back to
+                you promptly.
+              </p>
+
+              <form className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[#F2F5F9] font-medium mb-2">
+                      First Name
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] focus:outline-none focus:border-[#00A6E6] transition-colors"
+                      placeholder="Your first name"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[#F2F5F9] font-medium mb-2">
+                      Last Name
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] focus:outline-none focus:border-[#00A6E6] transition-colors"
+                      placeholder="Your last name"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[#F2F5F9] font-medium mb-2">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] focus:outline-none focus:border-[#00A6E6] transition-colors"
+                    placeholder="your.email@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[#F2F5F9] font-medium mb-2">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] focus:outline-none focus:border-[#00A6E6] transition-colors"
+                    placeholder="+263 XXX XXX XXX"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[#F2F5F9] font-medium mb-2">
+                    Preferred Branch
+                  </label>
+                  <select className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] focus:outline-none focus:border-[#00A6E6] transition-colors">
+                    <option value="">Select a branch</option>
+                    {BRANCHES.map((branch: Branch) => (
+                      <option key={branch.id} value={branch.id}>
+                        {branch.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-[#F2F5F9] font-medium mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    rows={4}
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-[#F2F5F9] focus:outline-none focus:border-[#00A6E6] transition-colors"
+                    placeholder="How can we help you today?"
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full btn-primary text-lg py-4"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+
+            {/* Branch Contact Info */}
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#F2F5F9]">
+                Branch Contact Details
+              </h2>
+              <p className="text-[#B9C4CC] mb-8">
+                Find contact information for all our locations across Zimbabwe.
+              </p>
+
+              <div className="space-y-6">
+                {BRANCHES.map((branch: Branch) => (
+                  <div
+                    key={branch.id}
+                    className="bg-white/5 rounded-xl p-6 border border-white/10"
+                  >
+                    <h3 className="text-xl font-bold text-[#F2F5F9] mb-3">
+                      {branch.name}
+                    </h3>
+
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3">
+                        <span className="text-[#00A6E6]">ðŸ“</span>
+                        <span className="text-[#B9C4CC] text-sm">
+                          {branch.address}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <span className="text-[#00A6E6]">ðŸ“ž</span>
+                        <span className="text-[#B9C4CC] text-sm">
+                          {branch.phone}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <span className="text-[#00A6E6]">ðŸ“§</span>
+                        <span className="text-[#B9C4CC] text-sm">
+                          {branch.name.toLowerCase().replace(/\s+/g, "-")}
+                          @linkoptical.co.zw
+                        </span>
+                      </div>
+
+                      <div className="border-t border-white/10 pt-3 mt-3">
+                        <p className="text-[#F2F5F9] font-medium mb-2">
+                          ðŸ•’ Hours
+                        </p>
+                        <div className="text-sm text-[#B9C4CC] space-y-1">
+                          <div className="flex justify-between">
+                            <span>Mon - Fri:</span>
+                            <span>{branch.hours.weekdays}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Saturday:</span>
+                            <span>{branch.hours.saturday}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Sunday:</span>
+                            <span>{branch.hours.sunday}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-2 pt-3">
+                        <button className="btn-primary text-sm py-2 px-4 flex-1">
+                          Call Branch
+                        </button>
+                        <button className="btn-secondary text-sm py-2 px-4">
+                          Directions
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#0E2433]">
+        <div className="container-premium">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
+              Quick answers to common questions about our services
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-6">
+            {FAQS.map((faq: FAQ, index) => (
+              <div
+                key={index}
+                className="bg-white/5 rounded-xl p-6 border border-white/10"
+              >
+                <h3 className="text-lg font-bold text-[#F2F5F9] mb-3">
+                  {faq.question}
+                </h3>
+                <p className="text-[#B9C4CC] leading-relaxed">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-20 bg-linear-to-r from-[#001F3F] to-[#0077B6]">
+        <div className="container-premium">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Ready to Improve Your Vision?
+            </h2>
+            <p className="text-xl text-[#B9C4CC] mb-8">
+              Don&apos;t wait to experience better vision. Contact us today and
+              take the first step toward clearer sight.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="btn-primary text-lg px-8 py-4">
+                ðŸ“ž Call Us Now
+              </button>
+              <button className="btn-secondary text-lg px-8 py-4">
+                ðŸ“ Visit Branch
+              </button>
+              <button className="btn-secondary text-lg px-8 py-4">
+                ðŸ’¬ WhatsApp
+              </button>
+            </div>
+
+            <p className="text-[#B9C4CC] text-sm mt-4">
+              Emergency eye care available â€¢ All medical aids accepted â€¢
+              Family-friendly service
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+```
+
+===============================
+  app\frames\page.tsx
+===============================
+`$lang
+import Navigation from "@/components/Navigation";
+import FramesGallery from "@/components/FramesGallery";
+
+export default function FramesPage() {
+  return (
+    <div className="min-h-screen">
+      <Navigation />
+
+      <section className="py-20 bg-gradient-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
+        <div className="container-premium">
+          <div className="text-center mb-16">
+            <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
+              <span className="text-[#F2F5F9]">Premium Frames</span>
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A6E6] to-[#48CAE4]">
+                & Lenses
+              </span>
+            </h1>
+            <p className="text-xl md:text-2xl text-[#B9C4CC] max-w-3xl mx-auto">
+              Discover our exclusive collection of designer frames and advanced
+              lenses. From global luxury brands to affordable quality options,
+              all crafted with precision in our in-house laboratory.
+            </p>
+          </div>
+
+          <FramesGallery />
+        </div>
+      </section>
+    </div>
+  );
+}
+
+```
+
+===============================
   app\globals.css
 ===============================
 `$lang
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300&display=swap");
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* âœ… Deep Ocean Color Palette */
+  --bg-top: #001f3f;
+  --bg-bottom: #0099cc;
+  --accent: #00a6e6;
+  --glow-center: #0077b6;
+  --glow-edge: #48cae4;
+  --text-primary: #f2f5f9;
+  --text-muted: #b9c4cc;
+  --surface-dark: #0e2433;
+  --surface-light: #ffffff;
+  --border-dark: #2c3e50;
+  --border-light: #e6eef5;
+  --success: #2ecc71;
+  --warning: #f39c12;
+  --error: #e74c3c;
+
+  /* âœ… Premium Typography */
+  --font-montserrat: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-montserrat);
+
+  /* âœ… Spacing System */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-montserrat);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* âœ… Base Styles with Premium Ocean Theme */
+body {
+  background: linear-gradient(135deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  color: var(--text-primary);
+  font-family: var(--font-montserrat);
+  font-weight: 400;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* âœ… Premium Container */
+.container-premium {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-premium {
+    padding: 3rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* âœ… Premium Button Styles */
+.btn-primary {
+  background: var(--accent);
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px 0 rgba(0, 166, 230, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  background: #008fcd;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 166, 230, 0.5);
+}
+
+.btn-primary:focus {
+  outline: 3px solid rgba(72, 202, 228, 0.5);
+  outline-offset: 2px;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  border: 2px solid var(--border-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent);
+}
+
+/* âœ… Premium Card Styles */
+.card-premium {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.card-premium:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border-color: rgba(72, 202, 228, 0.3);
+}
+
+/* âœ… Premium Typography Scale */
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.3;
+  margin-bottom: 0.75rem;
+}
+
+p {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+/* âœ… Accessibility & Focus Styles */
+*:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* âœ… Glow Effects for Premium Feel */
+.glow-effect {
+  position: relative;
+}
+
+.glow-effect::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: radial-gradient(
+    circle at center,
+    var(--glow-center) 0%,
+    var(--glow-edge) 50%,
+    transparent 70%
+  );
+  opacity: 0.1;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+/* âœ… Responsive Design */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  .container-premium {
+    padding: 1rem;
+  }
+}
+
+/* âœ… Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* âœ… Selection Colors */
+::selection {
+  background: var(--accent);
+  color: white;
 }
 
 ```
@@ -1965,6 +3778,7 @@ body {
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import AuthProvider from "@/providers/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -1976,9 +3790,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const montserrat = Geist({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
-  title: "Create Next App",
-  description: "Generated by create next app",
+  title: "Link Opticians â€” Premium Eye Care & Precision Vision",
+  description:
+    "Same-day spectacles from our in-house lab. Book an eye exam online at Link Opticians. Quality eye care across Zimbabwe.",
 };
 
 export default function RootLayout({
@@ -1988,10 +3808,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="theme-color" content="#001F3F" />
+        <meta property="og:site_name" content="Link Opticians" />
+        <meta
+          property="og:title"
+          content="Link Opticians â€” Eye Care & Precision Vision"
+        />
+        <meta
+          property="og:description"
+          content="Same-day spectacles from our in-house lab. Book an eye exam online at Link Opticians."
+        />
+        <meta property="og:image" content="/assets/og-image.png" />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${montserrat.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
@@ -2003,43 +3836,524 @@ export default function RootLayout({
   app\page.tsx
 ===============================
 `$lang
-import BookingForm from "@/components/BookingForm";
+"use client";
+
+import Navigation from "@/components/Navigation";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+  const router = useRouter();
+  const { data: session, status } = useSession();
+
+  const handleBookEyeExam = () => {
+    if (status === "loading") return;
+
+    if (!session) {
+      // Redirect to login with callback to booking page
+      router.push(
+        "/auth/login?callbackUrl=/book&message=Please sign in to book your eye exam"
+      );
+    } else {
+      router.push("/book");
+    }
+  };
+
+  const handleBrowseFrames = () => {
+    router.push("/frames");
+  };
+
   return (
-    <main className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Link Optical
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Book your eye care appointment online. Quality eye care services
-            across multiple branches in Zimbabwe.
-          </p>
-        </div>
+    <div className="min-h-screen">
+      <Navigation />
 
-        {/* Booking Form */}
-        <BookingForm />
+      {/* âœ… Premium Hero Section */}
+      <main>
+        <section className="py-20">
+          <div className="container-premium">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Hero Content */}
+              <div className="space-y-8">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                  Premium Eye Care
+                  <span className="text-[#00A6E6] block">For Everyone</span>
+                </h1>
 
-        {/* Additional Info */}
-        <div className="max-w-2xl mx-auto mt-12 text-center">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">
-            Our Services Include:
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm text-gray-600">
-            <div>ðŸ‘ï¸ Eye Examinations</div>
-            <div>ðŸ‘“ Contact Lenses</div>
-            <div>ðŸ•¶ï¸ Sunglasses</div>
-            <div>ðŸ”¬ Visual Field Tests</div>
-            <div>ðŸ‘¨â€ðŸ‘©â€ðŸ‘§â€ðŸ‘¦ Family Eye Care</div>
-            <div>ðŸ¥ Emergency Services</div>
-            <div>ðŸ¥ others..</div>
+                <p className="text-xl text-[#B9C4CC] max-w-2xl">
+                  Experience world-class eye care with same-day spectacles from
+                  our in-house laboratory. Quality vision solutions across
+                  Zimbabwe.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button
+                    onClick={handleBookEyeExam}
+                    disabled={status === "loading"}
+                    className="btn-primary text-lg px-8 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {status === "loading" ? "Loading..." : "Book Eye Exam"}
+                  </button>
+                  <button
+                    onClick={handleBrowseFrames}
+                    className="btn-secondary text-lg px-8 py-4"
+                  >
+                    Browse Frames
+                  </button>
+                </div>
+
+                {/* Trust Indicators */}
+                <div className="flex items-center space-x-8 pt-8">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-[#00A6E6]">15+</div>
+                    <div className="text-sm text-[#B9C4CC]">
+                      Years Experience
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-[#00A6E6]">5</div>
+                    <div className="text-sm text-[#B9C4CC]">Branches</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-[#00A6E6]">
+                      Same Day
+                    </div>
+                    <div className="text-sm text-[#B9C4CC]">
+                      Spectacles Ready
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Hero Visual */}
+              <div className="relative">
+                <div className="glow-effect bg-gradient-to-br from-[#0077B6] to-[#48CAE4] rounded-2xl p-8 aspect-square flex items-center justify-center">
+                  <div className="text-center text-white">
+                    <div className="text-6xl mb-4">ðŸ‘“</div>
+                    <div className="text-xl font-semibold">
+                      Premium Vision Care
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}
+
+```
+
+===============================
+  app\profile\actions.ts
+===============================
+`$lang
+"use server";
+
+import { redirect } from "next/navigation";
+
+export async function redirectToBooking() {
+  redirect("/book");
+}
+
+export async function redirectToAppointments() {
+  redirect("/appointments");
+}
+
+```
+
+===============================
+  app\profile\page.tsx
+===============================
+`$lang
+import { getCurrentUser } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import Navigation from "@/components/Navigation";
+import ProfileActions from "@/components/ProfileActions";
+
+export default async function ProfilePage() {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect("/auth/login");
+  }
+
+  return (
+    <div className="min-h-screen">
+      <Navigation />
+
+      <section className="py-20 bg-gradient-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
+        <div className="container-premium">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h1 className="text-5xl md:text-6xl font-black mb-6 leading-tight">
+                <span className="text-[#F2F5F9]">My</span>
+                <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A6E6] to-[#48CAE4]">
+                  Profile
+                </span>
+              </h1>
+              <p className="text-xl text-[#B9C4CC]">
+                Welcome back, {user.firstName}! Manage your appointments and
+                profile.
+              </p>
+            </div>
+
+            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-2xl font-bold text-[#F2F5F9] mb-4">
+                    Personal Information
+                  </h3>
+                  <div className="space-y-3">
+                    <div>
+                      <p className="text-[#B9C4CC] text-sm">Full Name</p>
+                      <p className="text-[#F2F5F9] font-medium">
+                        {user.firstName} {user.lastName}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-[#B9C4CC] text-sm">Email</p>
+                      <p className="text-[#F2F5F9] font-medium">{user.email}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold text-[#F2F5F9] mb-4">
+                    Quick Actions
+                  </h3>
+                  <ProfileActions />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </section>
+    </div>
+  );
+}
+
+```
+
+===============================
+  app\services\page.tsx
+===============================
+`$lang
+"use client";
+import Navigation from "@/components/Navigation";
+import { SERVICES, MEDICAL_AIDS, BRANCH_FEATURES } from "@/constants/services";
+import { TESTIMONIALS } from "@/constants/testimonials";
+import { Service, Testimonial, BranchFeature } from "@/types";
+
+export default function Services() {
+  return (
+    <div className="min-h-screen">
+      <Navigation />
+
+      {/* Enhanced Header with Team Trust */}
+      <section className="py-24 bg-linear-to-br from-[#001F3F] via-[#002851] to-[#0077B6] relative">
+        <div className="container-premium">
+          <div className="text-center max-w-4xl mx-auto">
+            {/* Main Headline */}
+            <div className="mb-8">
+              <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
+                <span className="text-[#F2F5F9]">Your Vision</span>
+                <br />
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-[#00A6E6] to-[#48CAE4]">
+                  Our Passion
+                </span>
+              </h1>
+            </div>
+
+            {/* Sub-headline */}
+            <div className="mb-12">
+              <p className="text-2xl md:text-3xl text-[#F2F5F9] font-semibold mb-6">
+                Expert Eye Care You Can Trust
+              </p>
+              <p className="text-lg md:text-xl text-[#B9C4CC] leading-relaxed">
+                Led by experienced optometrists with 15+ years serving Zimbabwe,
+                we combine cutting-edge technology with personalized care for
+                vision that transforms lives.
+              </p>
+            </div>
+
+            {/* Key Benefits Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+              <div className="text-center p-6 bg-white/5 rounded-xl border border-white/10">
+                <div className="text-3xl mb-4">âš¡</div>
+                <h3 className="text-xl font-bold text-[#F2F5F9] mb-2">
+                  Same-Day Service
+                </h3>
+                <p className="text-[#B9C4CC]">
+                  Spectacles ready while you wait
+                </p>
+              </div>
+
+              <div className="text-center p-6 bg-white/5 rounded-xl border border-white/10">
+                <div className="text-3xl mb-4">ðŸ‘¨â€âš•ï¸</div>
+                <h3 className="text-xl font-bold text-[#F2F5F9] mb-2">
+                  Expert Optometrists
+                </h3>
+                <p className="text-[#B9C4CC]">15+ years experience each</p>
+              </div>
+
+              <div className="text-center p-6 bg-white/5 rounded-xl border border-white/10">
+                <div className="text-3xl mb-4">ðŸŽ¯</div>
+                <h3 className="text-xl font-bold text-[#F2F5F9] mb-2">
+                  Quality Guarantee
+                </h3>
+                <p className="text-[#B9C4CC]">
+                  Premium materials & craftsmanship
+                </p>
+              </div>
+            </div>
+
+            {/* Medical Aid & Branch Info */}
+            <div className="bg-white/10 rounded-2xl p-6 mb-8 border border-white/20">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-lg font-bold text-[#F2F5F9] mb-3">
+                    âœ… Accepted Medical Aids
+                  </h4>
+                  <div className="flex flex-wrap gap-2 justify-center">
+                    {MEDICAL_AIDS.slice(0, 3).map((aid, index) => (
+                      <span
+                        key={index}
+                        className="bg-[#00A6E6] px-3 py-1 rounded-full text-sm text-white"
+                      >
+                        {aid}
+                      </span>
+                    ))}
+                    <span className="bg-white/20 px-3 py-1 rounded-full text-sm text-[#F2F5F9]">
+                      +{MEDICAL_AIDS.length - 3} more
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-[#00A6E6] mb-3">
+                    ðŸ“ 5 Convenient Branches
+                  </h4>
+                  <p className="text-[#B9C4CC] text-sm">
+                    Same great service across Zimbabwe
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Section */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <button className="btn-primary text-lg px-12 py-4 font-bold">
+                Book Your Appointment
+              </button>
+              <button className="btn-secondary text-lg px-8 py-4">
+                Meet Our Team
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Grid */}
+      <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#0E2433]">
+        <div className="container-premium">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {SERVICES.map((service: Service) => (
+              <div
+                key={service.id}
+                className="card-premium group hover:scale-105 transition-all duration-300"
+              >
+                <div className="mb-6">
+                  <div className="text-5xl mb-4 text-center">
+                    {service.icon}
+                  </div>
+                  <div className="w-full h-48 bg-linear-to-br from-[#0077B6] to-[#48CAE4] rounded-xl mb-4 flex items-center justify-center group-hover:shadow-xl group-hover:shadow-[#00A6E6]/20 transition-all">
+                    <span className="text-white text-sm font-medium text-center">
+                      Professional Service
+                      <br />
+                      <span className="text-xs opacity-80">
+                        Quality Guaranteed
+                      </span>
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="flex items-start justify-between">
+                    <h3 className="text-xl font-semibold text-[#F2F5F9] flex-1">
+                      {service.title}
+                    </h3>
+                    <span className="text-xs bg-[#00A6E6] text-white px-2 py-1 rounded-full ml-2 whitespace-nowrap">
+                      {service.duration}
+                    </span>
+                  </div>
+
+                  <p className="text-[#B9C4CC] leading-relaxed">
+                    {service.description}
+                  </p>
+
+                  <ul className="space-y-2">
+                    {service.features.map((feature, index) => (
+                      <li
+                        key={index}
+                        className="flex items-center text-sm text-[#B9C4CC]"
+                      >
+                        <span className="w-2 h-2 bg-[#00A6E6] rounded-full mr-3"></span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="pt-4">
+                    <button className="w-full btn-primary text-center justify-center">
+                      {service.cta}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Branch Services Overview */}
+      <section className="py-16 bg-linear-to-r from-[#001F3F] to-[#003366]">
+        <div className="container-premium">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Services Across All Branches
+            </h2>
+            <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
+              Same premium quality and expert care at all 5 locations
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {BRANCH_FEATURES.map((feature: BranchFeature, index) => (
+              <div
+                key={index}
+                className="text-center p-6 bg-white/5 rounded-xl border border-white/10"
+              >
+                <div className="text-3xl mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-bold text-[#F2F5F9] mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-[#B9C4CC]">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Marquee Testimonials */}
+      <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#002851]">
+        <div className="container-premium">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Loved by Our Patients
+            </h2>
+            <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
+              Real stories from real people across Zimbabwe
+            </p>
+          </div>
+
+          {/* Marquee Container */}
+          <div className="relative overflow-hidden">
+            <div className="flex animate-marquee space-x-8">
+              {[...TESTIMONIALS, ...TESTIMONIALS].map(
+                (testimonial: Testimonial, index) => (
+                  <div
+                    key={index}
+                    className="shrink-0 w-80 bg-white/5 rounded-xl p-6 border border-white/10"
+                  >
+                    <div className="flex justify-center mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <span key={i} className="text-yellow-400 text-lg">
+                          â­
+                        </span>
+                      ))}
+                    </div>
+                    <p className="text-[#B9C4CC] italic mb-4 text-sm leading-relaxed">
+                      &quot;{testimonial.text}&quot;
+                    </p>
+                    <div className="border-t border-white/10 pt-3">
+                      <h4 className="font-bold text-[#F2F5F9] text-sm">
+                        {testimonial.name}
+                      </h4>
+                      <p className="text-xs text-[#B9C4CC]">
+                        {testimonial.location}
+                      </p>
+                    </div>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-20 bg-linear-to-r from-[#001F3F] to-[#0077B6]">
+        <div className="container-premium">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Ready to See Clearly?
+            </h2>
+            <p className="text-xl text-[#B9C4CC] mb-8">
+              Experience the Link Optical difference - where expert care meets
+              same-day service.
+            </p>
+
+            {/* Final Assurance */}
+            <div className="bg-white/10 rounded-xl p-6 mb-8 border border-white/20">
+              <div className="grid md:grid-cols-3 gap-4 text-sm">
+                <div className="flex items-center justify-center gap-2">
+                  <span className="text-[#00A6E6]">âœ…</span>
+                  <span className="text-[#F2F5F9]">Free Consultation</span>
+                </div>
+                <div className="flex items-center justify-center gap-2">
+                  <span className="text-[#00A6E6]">âœ…</span>
+                  <span className="text-[#F2F5F9]">Medical Aid Accepted</span>
+                </div>
+                <div className="flex items-center justify-center gap-2">
+                  <span className="text-[#00A6E6]">âœ…</span>
+                  <span className="text-[#F2F5F9]">Quality Guarantee</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="btn-primary text-lg px-8 py-4">
+                ðŸ“… Book Your Appointment
+              </button>
+              <button className="btn-secondary text-lg px-8 py-4">
+                ðŸ“ž Call Nearest Branch
+              </button>
+            </div>
+            <p className="text-[#B9C4CC] text-sm mt-4">
+              âš¡ Same-day service available â€¢ ðŸ’³ All medical aids accepted â€¢ ðŸ“
+              5 locations nationwide
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Add Marquee Animation */}
+      <style jsx>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .animate-marquee {
+          animation: marquee 30s linear infinite;
+        }
+      `}</style>
+    </div>
   );
 }
 

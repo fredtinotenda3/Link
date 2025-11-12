@@ -1,0 +1,13 @@
+﻿
+2025-11-12 11:49:50   Found 9 file(s) under constants/
+2025-11-12 11:49:51   Read: constants\booking.ts
+2025-11-12 11:49:51   Read: constants\branches.ts
+2025-11-12 11:49:51   Read: constants\company.ts
+2025-11-12 11:49:51   Read: constants\contact.ts
+2025-11-12 11:49:51   Read: constants\frames.ts
+2025-11-12 11:49:51   Read: constants\index.ts
+2025-11-12 11:49:51   Read: constants\services.ts
+2025-11-12 11:49:51   Read: constants\team.ts
+2025-11-12 11:49:51   Read: constants\testimonials.ts
+2025-11-12 11:49:51   Wrote constants_code.md  size: 20413 bytes
+2025-11-12 11:49:53  Done.
