@@ -444,6 +444,34 @@ export interface FrameCategoryInfo {
 ```
 
 ===============================
+  types\homepage.ts
+===============================
+`$lang
+export interface HomepageService {
+  icon: string;
+  title: string;
+  description: string;
+  link: string;
+  features: string[];
+}
+
+export interface HomepageFeature {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface Testimonial {
+  id: number;
+  name: string;
+  location: string;
+  text: string;
+  rating: number;
+}
+
+```
+
+===============================
   types\index.ts
 ===============================
 `$lang
@@ -469,6 +497,7 @@ export * from "./sms";
   types\next-auth.d.ts
 ===============================
 `$lang
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import NextAuth from "next-auth";
 
 declare module "next-auth" {
@@ -478,6 +507,7 @@ declare module "next-auth" {
       firstName: string;
       lastName: string;
       email: string;
+      phone?: string; //
     };
   }
 
@@ -486,6 +516,7 @@ declare module "next-auth" {
     firstName: string;
     lastName: string;
     email: string;
+    phone?: string; //
   }
 }
 
@@ -494,6 +525,7 @@ declare module "next-auth/jwt" {
     id: string;
     firstName: string;
     lastName: string;
+    phone?: string; //
   }
 }
 

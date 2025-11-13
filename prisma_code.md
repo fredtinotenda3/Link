@@ -2,6 +2,7 @@
   prisma\schema.prisma
 ===============================
 `$lang
+// prisma/schema.prisma
 generator client {
   provider = "prisma-client-js"
 }

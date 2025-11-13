@@ -745,6 +745,720 @@ export default function FramesGallery() {
 ```
 
 ===============================
+  components\homepage\FinalCTA.tsx
+===============================
+`$lang
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { MEDICAL_AIDS } from "@/constants/services";
+
+export default function FinalCTA() {
+  const { data: session, status } = useSession();
+
+  const handleBookAppointment = () => {
+    if (status === "loading") return;
+    if (!session) {
+      window.location.href =
+        "/auth/login?callbackUrl=/book&message=Please sign in to book your appointment";
+    } else {
+      window.location.href = "/book";
+    }
+  };
+
+  return (
+    <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#0E2433]">
+      <div className="container-premium">
+        <div className="text-center max-w-3xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Ready to See Clearly?
+          </h2>
+          <p className="text-xl text-[#B9C4CC] mb-8">
+            Join thousands of satisfied patients who trust Link Optical with
+            their vision care. Book your appointment today and experience the
+            difference.
+          </p>
+
+          {/* Medical Aids Assurance */}
+          <div className="bg-white/5 rounded-xl p-6 mb-8 border border-white/10">
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <div className="flex items-center justify-center gap-2">
+                <span className="text-[#00A6E6]">âš¡</span>
+                <span className="text-[#F2F5F9]">Same-Day Service</span>
+              </div>
+              <div className="flex items-center justify-center gap-2">
+                <span className="text-[#00A6E6]">ðŸ›¡ï¸</span>
+                <span className="text-[#F2F5F9]">Medical Aid Accepted</span>
+              </div>
+              <div className="flex items-center justify-center gap-2">
+                <span className="text-[#00A6E6]">ðŸŽ¯</span>
+                <span className="text-[#F2F5F9]">Expert Optometrists</span>
+              </div>
+            </div>
+            <div className="mt-4 text-center">
+              <p className="text-[#B9C4CC] text-sm">
+                Accepted: {MEDICAL_AIDS.slice(0, 3).join(", ")} +{" "}
+                {MEDICAL_AIDS.length - 3} more
+              </p>
+            </div>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={handleBookAppointment}
+              disabled={status === "loading"}
+              className="btn-primary text-lg px-8 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {status === "loading" ? "Loading..." : "Book Your Appointment"}
+            </button>
+            <Link
+              href="/branches"
+              className="btn-secondary text-lg px-8 py-4 text-center"
+            >
+              Find Nearest Branch
+            </Link>
+          </div>
+
+          {/* Additional Info */}
+          <div className="mt-8 text-[#B9C4CC] text-sm">
+            <p>
+              ðŸ“ 5 locations nationwide â€¢ ðŸ“ž 24/7 support â€¢ ðŸ’° Affordable
+              pricing
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+===============================
+  components\homepage\HeroCarousel.tsx
+===============================
+`$lang
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { COMPANY_STATS } from "@/constants/company";
+import { SERVICES } from "@/constants/services";
+import { HERO_CAROUSEL_IMAGES } from "@/constants/homepage";
+import Image from "next/image";
+
+export default function HeroCarousel() {
+  const { data: session, status } = useSession();
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Hero slides with real image paths
+  const heroSlides = [
+    {
+      id: 1,
+      title: "Premium Eye Care",
+      subtitle: "For Everyone",
+      description:
+        "Experience world-class eye care with same-day spectacles from our in-house laboratory. Quality vision solutions across Zimbabwe.",
+      image: HERO_CAROUSEL_IMAGES.eyeExam,
+      cta: "Book Eye Exam",
+    },
+    {
+      id: 2,
+      title: "Same-Day Spectacles",
+      subtitle: "Ready in Hours",
+      description:
+        "Get your glasses made same-day in our advanced in-house laboratory. No more waiting weeks for your vision correction.",
+      image: HERO_CAROUSEL_IMAGES.sameDaySpectacles,
+      cta: "Browse Frames",
+    },
+    {
+      id: 3,
+      title: "Expert Optometrists",
+      subtitle: "15+ Years Experience",
+      description:
+        "Our qualified optometrists provide comprehensive eye examinations using state-of-the-art diagnostic equipment.",
+      image: HERO_CAROUSEL_IMAGES.expertOptometrists,
+      cta: "Meet Our Team",
+    },
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, [heroSlides.length]);
+
+  const handleBookAppointment = () => {
+    if (status === "loading") return;
+    if (!session) {
+      window.location.href =
+        "/auth/login?callbackUrl=/book&message=Please sign in to book your appointment";
+    } else {
+      window.location.href = "/book";
+    }
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide(
+      (prev) => (prev - 1 + heroSlides.length) % heroSlides.length
+    );
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  const slide = heroSlides[currentSlide];
+
+  return (
+    <section className="relative py-20 min-h-[80vh] flex items-center">
+      <div className="container-premium">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Content Side */}
+          <div className="space-y-8 z-10">
+            <div className="space-y-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                {slide.title}
+                <span className="text-[#00A6E6] block">{slide.subtitle}</span>
+              </h1>
+
+              <p className="text-xl text-[#B9C4CC] max-w-2xl leading-relaxed">
+                {slide.description}
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  onClick={handleBookAppointment}
+                  disabled={status === "loading"}
+                  className="btn-primary text-lg px-8 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {status === "loading" ? "Loading..." : "Book Appointment"}
+                </button>
+                <Link
+                  href={
+                    slide.id === 1
+                      ? "/services"
+                      : slide.id === 2
+                      ? "/frames"
+                      : "/about"
+                  }
+                  className="btn-secondary text-lg px-8 py-4 text-center"
+                >
+                  {slide.cta}
+                </Link>
+              </div>
+            </div>
+
+            {/* Stats from COMPANY_STATS */}
+            <div className="flex items-center space-x-8 pt-8">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#00A6E6]">
+                  {COMPANY_STATS.yearsExperience}
+                </div>
+                <div className="text-sm text-[#B9C4CC]">Years Experience</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#00A6E6]">
+                  {COMPANY_STATS.branches}
+                </div>
+                <div className="text-sm text-[#B9C4CC]">Branches</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-[#00A6E6]">
+                  {COMPANY_STATS.sameDayService}
+                </div>
+                <div className="text-sm text-[#B9C4CC]">Day Service</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Image Side - UPDATED WITH REAL IMAGES */}
+          <div className="relative">
+            <div className="glow-effect rounded-2xl overflow-hidden aspect-square border border-white/10">
+              <Image
+                src={slide.image}
+                alt={slide.title}
+                width={600}
+                height={600}
+                className="w-full h-full object-cover"
+                priority={currentSlide === 0}
+              />
+            </div>
+
+            {/* Carousel Controls */}
+            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
+              {heroSlides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all ${
+                    index === currentSlide
+                      ? "bg-white scale-125"
+                      : "bg-white/50 hover:bg-white/70"
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all"
+            >
+              â†
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all"
+            >
+              â†’
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+===============================
+  components\homepage\HeroSection.tsx
+===============================
+`$lang
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+
+const heroSlides = [
+  {
+    id: 1,
+    title: "Premium Eye Care",
+    subtitle: "For Everyone",
+    description:
+      "Experience world-class eye care with same-day spectacles from our in-house laboratory. Quality vision solutions across Zimbabwe.",
+    image: "ðŸ‘ï¸", // Will be hero image 1
+    cta: "Book Eye Exam",
+    stats: ["15+ Years Experience", "5 Branches", "Same Day Service"],
+  },
+  {
+    id: 2,
+    title: "Same-Day Spectacles",
+    subtitle: "Ready in Hours",
+    description:
+      "Get your glasses made same-day in our advanced in-house laboratory. No more waiting weeks for your vision correction.",
+    image: "ðŸ‘“", // Will be hero image 2
+    cta: "Browse Frames",
+    stats: ["In-House Lab", "500+ Styles", "Quality Guarantee"],
+  },
+  {
+    id: 3,
+    title: "Expert Optometrists",
+    subtitle: "15+ Years Experience",
+    description:
+      "Our qualified optometrists provide comprehensive eye examinations using state-of-the-art diagnostic equipment.",
+    image: "ðŸ”¬", // Will be hero image 3
+    cta: "Meet Our Team",
+    stats: ["Advanced Equipment", "50,000+ Patients", "Expert Care"],
+  },
+];
+
+export default function HeroCarousel() {
+  const { data: session, status } = useSession();
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 6000); // Change every 6 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleBookAppointment = () => {
+    if (status === "loading") return;
+    if (!session) {
+      window.location.href =
+        "/auth/login?callbackUrl=/book&message=Please sign in to book your appointment";
+    } else {
+      window.location.href = "/book";
+    }
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide(
+      (prev) => (prev - 1 + heroSlides.length) % heroSlides.length
+    );
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  const slide = heroSlides[currentSlide];
+
+  return (
+    <section className="relative py-20 min-h-[80vh] flex items-center">
+      <div className="container-premium">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Content Side */}
+          <div className="space-y-8 z-10">
+            {/* Slide Content */}
+            <div className="space-y-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                {slide.title}
+                <span className="text-[#00A6E6] block">{slide.subtitle}</span>
+              </h1>
+
+              <p className="text-xl text-[#B9C4CC] max-w-2xl leading-relaxed">
+                {slide.description}
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  onClick={handleBookAppointment}
+                  disabled={status === "loading"}
+                  className="btn-primary text-lg px-8 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {status === "loading" ? "Loading..." : slide.cta}
+                </button>
+                <Link
+                  href="/services"
+                  className="btn-secondary text-lg px-8 py-4 text-center"
+                >
+                  Our Services
+                </Link>
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="flex items-center space-x-8 pt-8">
+              {slide.stats.map((stat, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-2xl font-bold text-[#00A6E6]">
+                    {stat.split(" ")[0]}
+                  </div>
+                  <div className="text-sm text-[#B9C4CC] max-w-[100px]">
+                    {stat.split(" ").slice(1).join(" ")}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Image Side - Carousel */}
+          <div className="relative">
+            <div className="glow-effect bg-gradient-to-br from-[#0077B6] to-[#48CAE4] rounded-2xl p-8 aspect-square flex items-center justify-center">
+              <div className="text-center text-white">
+                <div className="text-6xl mb-4">{slide.image}</div>
+                <div className="text-xl font-semibold">
+                  Hero Image {currentSlide + 1}
+                </div>
+                <div className="text-sm opacity-80 mt-2">Carousel Slide</div>
+              </div>
+            </div>
+
+            {/* Carousel Controls */}
+            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
+              {heroSlides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all ${
+                    index === currentSlide
+                      ? "bg-white scale-125"
+                      : "bg-white/50 hover:bg-white/70"
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all"
+            >
+              â†
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all"
+            >
+              â†’
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+===============================
+  components\homepage\ServiceShowcase.tsx
+===============================
+`$lang
+import Link from "next/link";
+import { SERVICES } from "@/constants/services";
+
+export default function ServiceShowcase() {
+  // Use first 3 services for showcase
+  const showcaseServices = SERVICES.slice(0, 3);
+
+  return (
+    <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#0E2433]">
+      <div className="container-premium">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Our Premium Services
+          </h2>
+          <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
+            Comprehensive eye care solutions with same-day service and expert
+            care
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {showcaseServices.map((service) => (
+            <div key={service.id} className="card-premium text-center group">
+              <div className="text-5xl mb-6">{service.icon}</div>
+
+              <h3 className="text-2xl font-bold text-[#F2F5F9] mb-4">
+                {service.title}
+              </h3>
+
+              <p className="text-[#B9C4CC] mb-6 leading-relaxed">
+                {service.description}
+              </p>
+
+              <div className="space-y-2 mb-6">
+                {service.features.slice(0, 3).map((feature, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-center text-sm text-[#B9C4CC]"
+                  >
+                    <span className="w-2 h-2 bg-[#00A6E6] rounded-full mr-3"></span>
+                    {feature}
+                  </div>
+                ))}
+              </div>
+
+              <Link href="/services" className="btn-primary w-full">
+                {service.cta}
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <Link href="/services" className="btn-secondary text-lg px-8 py-4">
+            View All Services
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+===============================
+  components\homepage\TestimonialSection.tsx
+===============================
+`$lang
+"use client";
+
+import { useState, useEffect } from "react";
+import { TESTIMONIALS } from "@/constants/testimonials";
+import { COMPANY_STATS } from "@/constants/company";
+
+export default function TestimonialSection() {
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % TESTIMONIALS.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const testimonial = TESTIMONIALS[currentTestimonial];
+
+  return (
+    <section className="py-20 bg-linear-to-r from-[#001F3F] to-[#0077B6]">
+      <div className="container-premium">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Loved by Our Patients
+          </h2>
+          <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
+            Real stories from real people across Zimbabwe
+          </p>
+        </div>
+
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20">
+            {/* Rating Stars */}
+            <div className="flex justify-center mb-6">
+              {[...Array(testimonial.rating)].map((_, i) => (
+                <span key={i} className="text-yellow-400 text-2xl">
+                  â­
+                </span>
+              ))}
+            </div>
+
+            {/* Testimonial Text */}
+            <blockquote className="text-xl text-[#F2F5F9] text-center italic mb-8 leading-relaxed">
+              "{testimonial.text}"
+            </blockquote>
+
+            {/* Author */}
+            <div className="text-center">
+              <div className="font-bold text-[#F2F5F9] text-lg">
+                {testimonial.name}
+              </div>
+              <div className="text-[#B9C4CC]">{testimonial.location}</div>
+            </div>
+
+            {/* Navigation Dots */}
+            <div className="flex justify-center mt-6 space-x-2">
+              {TESTIMONIALS.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonial(index)}
+                  className={`w-3 h-3 rounded-full transition-all ${
+                    index === currentTestimonial
+                      ? "bg-[#00A6E6]"
+                      : "bg-white/30"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Stats from COMPANY_STATS */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 max-w-2xl mx-auto">
+          <div className="text-center">
+            <div className="text-3xl font-bold text-[#00A6E6]">
+              {COMPANY_STATS.patientsServed}
+            </div>
+            <div className="text-sm text-[#B9C4CC]">Patients Served</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-[#00A6E6]">99%</div>
+            <div className="text-sm text-[#B9C4CC]">Satisfaction Rate</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-[#00A6E6]">
+              {COMPANY_STATS.yearsExperience}
+            </div>
+            <div className="text-sm text-[#B9C4CC]">Years Experience</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-[#00A6E6]">
+              {COMPANY_STATS.branches}
+            </div>
+            <div className="text-sm text-[#B9C4CC]">Branches Nationwide</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+===============================
+  components\homepage\WhyChooseUs.tsx
+===============================
+`$lang
+import { COMPANY_VALUES, CERTIFICATIONS } from "@/constants/company";
+import { BRANCH_FEATURES } from "@/constants/services";
+
+export default function WhyChooseUs() {
+  return (
+    <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#002851]">
+      <div className="container-premium">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Why Choose Link Optical?
+          </h2>
+          <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
+            Experience the difference that 15 years of excellence makes in eye
+            care
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {COMPANY_VALUES.map((value, index) => (
+            <div
+              key={index}
+              className="text-center p-6 bg-white/5 rounded-xl border border-white/10 group hover:bg-white/10 transition-all"
+            >
+              <div className="text-3xl mb-4">{value.icon}</div>
+              <h3 className="text-lg font-bold text-[#F2F5F9] mb-2">
+                {value.title}
+              </h3>
+              <p className="text-[#B9C4CC] text-sm">{value.description}</p>
+            </div>
+          ))}
+
+          {BRANCH_FEATURES.map((feature, index) => (
+            <div
+              key={index + COMPANY_VALUES.length}
+              className="text-center p-6 bg-white/5 rounded-xl border border-white/10 group hover:bg-white/10 transition-all"
+            >
+              <div className="text-3xl mb-4">{feature.icon}</div>
+              <h3 className="text-lg font-bold text-[#F2F5F9] mb-2">
+                {feature.title}
+              </h3>
+              <p className="text-[#B9C4CC] text-sm">{feature.description}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Trust Badges from CERTIFICATIONS */}
+        <div className="mt-16 text-center">
+          <div className="bg-white/5 rounded-2xl p-8 border border-white/10">
+            <h3 className="text-xl font-bold text-[#F2F5F9] mb-6">
+              Trusted & Certified
+            </h3>
+            <div className="flex flex-wrap justify-center gap-6 opacity-80">
+              {CERTIFICATIONS.map((certification, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-2xl mb-2">â­</div>
+                  <div className="text-sm text-[#B9C4CC] max-w-[120px]">
+                    {certification}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+===============================
   components\Navigation.tsx
 ===============================
 `$lang
@@ -885,6 +1599,252 @@ export default function ProfileActions() {
         </button>
       </form>
     </div>
+  );
+}
+
+```
+
+===============================
+  components\services\ServicesCarousel.tsx
+===============================
+`$lang
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { SERVICES } from "@/constants/services";
+
+export default function ServicesCarousel() {
+  const [currentService, setCurrentService] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentService((prev) => (prev + 1) % SERVICES.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const nextService = () => {
+    setCurrentService((prev) => (prev + 1) % SERVICES.length);
+  };
+
+  const prevService = () => {
+    setCurrentService((prev) => (prev - 1 + SERVICES.length) % SERVICES.length);
+  };
+
+  const service = SERVICES[currentService];
+
+  return (
+    <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#002851]">
+      <div className="container-premium">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Our Premium Services
+          </h2>
+          <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
+            Comprehensive eye care solutions with same-day service and expert
+            care
+          </p>
+        </div>
+
+        <div className="max-w-6xl mx-auto">
+          {/* Service Carousel */}
+          <div className="bg-white/5 rounded-2xl p-8 border border-white/10">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
+              {/* Service Content */}
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-3xl md:text-4xl font-bold text-[#F2F5F9] mb-2">
+                    {service.title}
+                  </h3>
+                  <span className="bg-[#00A6E6] text-white text-sm px-3 py-1 rounded-full">
+                    {service.duration}
+                  </span>
+                </div>
+
+                <p className="text-lg text-[#B9C4CC] leading-relaxed">
+                  {service.description}
+                </p>
+
+                <div className="space-y-3">
+                  {service.features.map((feature, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center text-[#B9C4CC]"
+                    >
+                      <span className="w-2 h-2 bg-[#00A6E6] rounded-full mr-3"></span>
+                      {feature}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex gap-4 pt-4">
+                  <Link href="/book" className="btn-primary flex-1 text-center">
+                    {service.cta}
+                  </Link>
+                  <Link
+                    href="/services"
+                    className="btn-secondary px-6 text-center"
+                  >
+                    Learn More
+                  </Link>
+                </div>
+              </div>
+
+              {/* Service Image */}
+              <div className="relative">
+                <div className="rounded-2xl overflow-hidden aspect-square border border-white/10">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    width={500}
+                    height={500}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Service Navigation */}
+                <div className="flex justify-between items-center mt-6">
+                  <button
+                    onClick={prevService}
+                    className="bg-white/10 hover:bg-white/20 text-white p-2 rounded-full transition-all"
+                  >
+                    â†
+                  </button>
+
+                  <div className="flex space-x-2">
+                    {SERVICES.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentService(index)}
+                        className={`w-2 h-2 rounded-full transition-all ${
+                          index === currentService
+                            ? "bg-[#00A6E6] scale-125"
+                            : "bg-white/30 hover:bg-white/50"
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={nextService}
+                    className="bg-white/10 hover:bg-white/20 text-white p-2 rounded-full transition-all"
+                  >
+                    â†’
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Service Access */}
+          <div className="flex flex-wrap justify-center gap-4 mt-8">
+            {SERVICES.slice(0, 3).map((service) => (
+              <Link
+                key={service.id}
+                href="/services"
+                className="bg-white/5 hover:bg-white/10 text-[#F2F5F9] px-4 py-2 rounded-lg transition-all border border-white/10"
+              >
+                {service.title.split(" ")[0]}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+```
+
+===============================
+  components\services\ServicesHero.tsx
+===============================
+`$lang
+"use client";
+
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+
+export default function ServicesHero() {
+  const { data: session, status } = useSession();
+
+  const handleBookAppointment = () => {
+    if (status === "loading") return;
+    if (!session) {
+      window.location.href =
+        "/auth/login?callbackUrl=/book&message=Please sign in to book your appointment";
+    } else {
+      window.location.href = "/book";
+    }
+  };
+
+  return (
+    <section className="relative py-32 min-h-[80vh] flex items-center justify-center overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/services/hero-banner.png"
+          alt="Professional optometry services"
+          fill
+          className="object-cover"
+          priority
+        />
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/50"></div>
+      </div>
+
+      <div className="container-premium relative z-10">
+        <div className="text-center max-w-5xl mx-auto">
+          {/* Main Headline */}
+          <div className="mb-12">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight">
+              <span className="text-[#F2F5F9]">Your Vision</span>
+              <br />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#00A6E6] to-[#48CAE4]">
+                Our Passion
+              </span>
+            </h1>
+          </div>
+
+          {/* Sub-headline */}
+          <div className="mb-16">
+            <p className="text-3xl md:text-4xl text-[#F2F5F9] font-semibold mb-8">
+              Expert Eye Care You Can Trust
+            </p>
+            <p className="text-xl md:text-2xl text-[#B9C4CC] leading-relaxed max-w-4xl mx-auto">
+              Led by experienced optometrists with 15+ years serving Zimbabwe,
+              we combine cutting-edge technology with personalized care for
+              vision that transforms lives.
+            </p>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+            <button
+              onClick={handleBookAppointment}
+              disabled={status === "loading"}
+              className="btn-primary text-lg px-12 py-4 font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {status === "loading" ? "Loading..." : "Book Your Appointment"}
+            </button>
+            <button className="btn-secondary text-lg px-8 py-4 border-2 border-white/30 hover:border-white/50">
+              Meet Our Team
+            </button>
+          </div>
+
+          {/* Scroll Indicator */}
+          <div className="animate-bounce">
+            <div className="text-[#00A6E6] text-lg">â†“</div>
+            <div className="text-[#B9C4CC] text-sm mt-2">
+              Explore Our Services
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 

@@ -1475,13 +1475,12 @@ export async function GET(request: NextRequest) {
   app\api\auth\[...nextauth]\route.ts
 ===============================
 `$lang
+// app/api/auth/[...nextauth]/route.ts
 import NextAuth, { AuthOptions } from "next-auth";
-import { PrismaAdapter } from "@auth/prisma-adapter"; // âœ… Use @auth/prisma-adapter
+import { PrismaAdapter } from "@auth/prisma-adapter"; // â† FIXED IMPORT
 import { prisma } from "@/lib/prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { JWT } from "next-auth/jwt";
-import { Session, User } from "next-auth";
 
 // Extend built-in types
 declare module "next-auth" {
@@ -1512,7 +1511,7 @@ declare module "next-auth/jwt" {
 }
 
 export const authOptions: AuthOptions = {
-  adapter: PrismaAdapter(prisma) as any,
+  adapter: PrismaAdapter(prisma) as any, // â† ADD 'as any' for TypeScript
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -1520,71 +1519,89 @@ export const authOptions: AuthOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials): Promise<User | null> {
+      async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
 
-        // Find user by email
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email,
-          },
-        });
+        try {
+          // Find user by email
+          const user = await prisma.user.findUnique({
+            where: {
+              email: credentials.email,
+            },
+          });
 
-        if (!user || !user.password) {
+          if (!user || !user.password) {
+            return null;
+          }
+
+          // Verify password
+          const isPasswordValid = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
+
+          if (!isPasswordValid) {
+            return null;
+          }
+
+          return {
+            id: user.id,
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phone: user.phone || undefined, // âœ… Add phone here
+            name: `${user.firstName} ${user.lastName}`,
+          };
+        } catch (error) {
+          console.error("Authorization error:", error);
           return null;
         }
-
-        // Verify password
-        const isPasswordValid = await bcrypt.compare(
-          credentials.password,
-          user.password
-        );
-
-        if (!isPasswordValid) {
-          return null;
-        }
-
-        return {
-          id: user.id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          name: `${user.firstName} ${user.lastName}`,
-        };
       },
     }),
   ],
   session: {
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
-    async jwt({ token, user }: { token: JWT; user?: User }) {
+    async jwt({ token, user, trigger, session }) {
+      // Add user info to token on sign in
       if (user) {
         token.id = user.id;
         token.firstName = user.firstName;
         token.lastName = user.lastName;
+        token.phone = user.phone; // âœ… Add phone here
       }
+
+      // Update token when session is updated
+      if (trigger === "update" && session) {
+        token = { ...token, ...session };
+      }
+
       return token;
     },
-    async session({ session, token }: { session: Session; token: JWT }) {
+    async session({ session, token }) {
       if (token) {
-        session.user.id = token.id;
-        session.user.firstName = token.firstName;
-        session.user.lastName = token.lastName;
+        session.user.id = token.id as string;
+        session.user.firstName = token.firstName as string;
+        session.user.lastName = token.lastName as string;
+        session.user.email = token.email as string;
+        session.user.phone = token.phone as string; // âœ… Add phone here
       }
       return session;
     },
   },
   pages: {
     signIn: "/auth/login",
-    //signUp: "/auth/signup",
+    // Remove signUp - it's not a valid page option for NextAuth
+    error: "/auth/login",
   },
+  debug: process.env.NODE_ENV === "development",
 };
 
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST };
 
 ```
@@ -2732,11 +2749,13 @@ export default function LoginPage() {
   app\auth\signup\page.tsx
 ===============================
 `$lang
+// app/auth/signup/page.tsx
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -2770,6 +2789,7 @@ export default function SignupPage() {
     }
 
     try {
+      // Register the user
       const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
@@ -2787,15 +2807,35 @@ export default function SignupPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Redirect to login page with success message
-        router.push(
-          "/auth/login?message=Account created successfully. Please sign in."
+        console.log(
+          "âœ… User registered successfully, attempting auto-login..."
         );
+
+        // Auto-login after successful registration
+        const signInResult = await signIn("credentials", {
+          email: formData.email,
+          password: formData.password,
+          redirect: false,
+        });
+
+        if (signInResult?.error) {
+          console.error("âŒ Auto-login failed:", signInResult.error);
+          // If auto-login fails, redirect to login page with success message
+          router.push(
+            "/auth/login?message=Account created successfully. Please sign in."
+          );
+        } else {
+          console.log(
+            "âœ… Auto-login successful, redirecting to booking page..."
+          );
+          // Successfully logged in, redirect to booking page
+          router.push("/book");
+        }
       } else {
         setError(data.error || "Registration failed");
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
+      console.error("âŒ Registration error:", error);
       setError("An error occurred. Please try again.");
     } finally {
       setLoading(false);
@@ -3927,105 +3967,23 @@ export default function RootLayout({
 "use client";
 
 import Navigation from "@/components/Navigation";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import HeroCarousel from "@/components/homepage/HeroCarousel";
+import ServiceShowcase from "@/components/homepage/ServiceShowcase";
+import WhyChooseUs from "@/components/homepage/WhyChooseUs";
+import TestimonialSection from "@/components/homepage/TestimonialSection";
+import FinalCTA from "@/components/homepage/FinalCTA";
 
 export default function Home() {
-  const router = useRouter();
-  const { data: session, status } = useSession();
-
-  const handleBookEyeExam = () => {
-    if (status === "loading") return;
-
-    if (!session) {
-      // Redirect to login with callback to booking page
-      router.push(
-        "/auth/login?callbackUrl=/book&message=Please sign in to book your eye exam"
-      );
-    } else {
-      router.push("/book");
-    }
-  };
-
-  const handleBrowseFrames = () => {
-    router.push("/frames");
-  };
-
   return (
     <div className="min-h-screen">
       <Navigation />
 
-      {/* âœ… Premium Hero Section */}
       <main>
-        <section className="py-20">
-          <div className="container-premium">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Hero Content */}
-              <div className="space-y-8">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                  Premium Eye Care
-                  <span className="text-[#00A6E6] block">For Everyone</span>
-                </h1>
-
-                <p className="text-xl text-[#B9C4CC] max-w-2xl">
-                  Experience world-class eye care with same-day spectacles from
-                  our in-house laboratory. Quality vision solutions across
-                  Zimbabwe.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button
-                    onClick={handleBookEyeExam}
-                    disabled={status === "loading"}
-                    className="btn-primary text-lg px-8 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {status === "loading" ? "Loading..." : "Book Eye Exam"}
-                  </button>
-                  <button
-                    onClick={handleBrowseFrames}
-                    className="btn-secondary text-lg px-8 py-4"
-                  >
-                    Browse Frames
-                  </button>
-                </div>
-
-                {/* Trust Indicators */}
-                <div className="flex items-center space-x-8 pt-8">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-[#00A6E6]">15+</div>
-                    <div className="text-sm text-[#B9C4CC]">
-                      Years Experience
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-[#00A6E6]">5</div>
-                    <div className="text-sm text-[#B9C4CC]">Branches</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-[#00A6E6]">
-                      Same Day
-                    </div>
-                    <div className="text-sm text-[#B9C4CC]">
-                      Spectacles Ready
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Hero Visual */}
-              <div className="relative">
-                <div className="glow-effect bg-gradient-to-br from-[#0077B6] to-[#48CAE4] rounded-2xl p-8 aspect-square flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <div className="text-6xl mb-4">ðŸ‘“</div>
-                    <div className="text-xl font-semibold">
-                      Premium Vision Care
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <HeroCarousel />
+        <ServiceShowcase />
+        <WhyChooseUs />
+        <TestimonialSection />
+        <FinalCTA />
       </main>
     </div>
   );
@@ -4131,181 +4089,58 @@ export default async function ProfilePage() {
 `$lang
 "use client";
 import Navigation from "@/components/Navigation";
-// âœ… Specific constant imports
-import { SERVICES, MEDICAL_AIDS, BRANCH_FEATURES } from "@/constants/services";
+import ServicesHero from "@/components/services/ServicesHero";
+import ServicesCarousel from "@/components/services/ServicesCarousel";
+import { MEDICAL_AIDS, BRANCH_FEATURES } from "@/constants/services";
 import { TESTIMONIALS } from "@/constants/testimonials";
-// âœ… Specific type imports
-import { Service, Testimonial, BranchFeature } from "@/types";
+import { BranchFeature, Testimonial } from "@/types";
 
 export default function Services() {
   return (
     <div className="min-h-screen">
       <Navigation />
 
-      {/* Enhanced Header with Team Trust */}
-      <section className="py-24 bg-linear-to-br from-[#001F3F] via-[#002851] to-[#0077B6] relative">
+      {/* NEW FULL-WIDTH HERO BANNER */}
+      <ServicesHero />
+
+      {/* Medical Aid & Trust Section */}
+      <section className="py-16 bg-linear-to-b from-[#001F3F] to-[#002851]">
         <div className="container-premium">
-          <div className="text-center max-w-4xl mx-auto">
-            {/* Main Headline */}
-            <div className="mb-8">
-              <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
-                <span className="text-[#F2F5F9]">Your Vision</span>
-                <br />
-                <span className="text-transparent bg-clip-text bg-linear-to-r from-[#00A6E6] to-[#48CAE4]">
-                  Our Passion
-                </span>
-              </h1>
-            </div>
-
-            {/* Sub-headline */}
-            <div className="mb-12">
-              <p className="text-2xl md:text-3xl text-[#F2F5F9] font-semibold mb-6">
-                Expert Eye Care You Can Trust
-              </p>
-              <p className="text-lg md:text-xl text-[#B9C4CC] leading-relaxed">
-                Led by experienced optometrists with 15+ years serving Zimbabwe,
-                we combine cutting-edge technology with personalized care for
-                vision that transforms lives.
-              </p>
-            </div>
-
-            {/* Key Benefits Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-              <div className="text-center p-6 bg-white/5 rounded-xl border border-white/10">
-                <div className="text-3xl mb-4">âš¡</div>
-                <h3 className="text-xl font-bold text-[#F2F5F9] mb-2">
-                  Same-Day Service
-                </h3>
-                <p className="text-[#B9C4CC]">
-                  Spectacles ready while you wait
-                </p>
-              </div>
-
-              <div className="text-center p-6 bg-white/5 rounded-xl border border-white/10">
-                <div className="text-3xl mb-4">ðŸ‘¨â€âš•ï¸</div>
-                <h3 className="text-xl font-bold text-[#F2F5F9] mb-2">
-                  Expert Optometrists
-                </h3>
-                <p className="text-[#B9C4CC]">15+ years experience each</p>
-              </div>
-
-              <div className="text-center p-6 bg-white/5 rounded-xl border border-white/10">
-                <div className="text-3xl mb-4">ðŸŽ¯</div>
-                <h3 className="text-xl font-bold text-[#F2F5F9] mb-2">
-                  Quality Guarantee
-                </h3>
-                <p className="text-[#B9C4CC]">
-                  Premium materials & craftsmanship
-                </p>
-              </div>
-            </div>
-
-            {/* Medical Aid & Branch Info */}
-            <div className="bg-white/10 rounded-2xl p-6 mb-8 border border-white/20">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="text-lg font-bold text-[#F2F5F9] mb-3">
-                    âœ… Accepted Medical Aids
-                  </h4>
-                  <div className="flex flex-wrap gap-2 justify-center">
-                    {MEDICAL_AIDS.slice(0, 3).map((aid, index) => (
-                      <span
-                        key={index}
-                        className="bg-[#00A6E6] px-3 py-1 rounded-full text-sm text-white"
-                      >
-                        {aid}
-                      </span>
-                    ))}
-                    <span className="bg-white/20 px-3 py-1 rounded-full text-sm text-[#F2F5F9]">
-                      +{MEDICAL_AIDS.length - 3} more
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h4 className="text-2xl font-bold text-[#F2F5F9] mb-4">
+                  âœ… Accepted Medical Aids
+                </h4>
+                <div className="flex flex-wrap gap-3">
+                  {MEDICAL_AIDS.slice(0, 3).map((aid, index) => (
+                    <span
+                      key={index}
+                      className="bg-[#00A6E6] px-4 py-2 rounded-full text-sm text-white font-medium"
+                    >
+                      {aid}
                     </span>
-                  </div>
-                </div>
-                <div>
-                  <h4 className="text-lg font-bold text-[#00A6E6] mb-3">
-                    ðŸ“ 5 Convenient Branches
-                  </h4>
-                  <p className="text-[#B9C4CC] text-sm">
-                    Same great service across Zimbabwe
-                  </p>
+                  ))}
+                  <span className="bg-white/20 px-4 py-2 rounded-full text-sm text-[#F2F5F9]">
+                    +{MEDICAL_AIDS.length - 3} more
+                  </span>
                 </div>
               </div>
-            </div>
-
-            {/* CTA Section */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <button className="btn-primary text-lg px-12 py-4 font-bold">
-                Book Your Appointment
-              </button>
-              <button className="btn-secondary text-lg px-8 py-4">
-                Meet Our Team
-              </button>
+              <div className="text-center md:text-right">
+                <h4 className="text-2xl font-bold text-[#00A6E6] mb-3">
+                  ðŸ“ 5 Convenient Branches
+                </h4>
+                <p className="text-[#B9C4CC] text-lg">
+                  Same great service across Zimbabwe
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#0E2433]">
-        <div className="container-premium">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {SERVICES.map((service: Service) => (
-              <div
-                key={service.id}
-                className="card-premium group hover:scale-105 transition-all duration-300"
-              >
-                <div className="mb-6">
-                  <div className="text-5xl mb-4 text-center">
-                    {service.icon}
-                  </div>
-                  <div className="w-full h-48 bg-linear-to-br from-[#0077B6] to-[#48CAE4] rounded-xl mb-4 flex items-center justify-center group-hover:shadow-xl group-hover:shadow-[#00A6E6]/20 transition-all">
-                    <span className="text-white text-sm font-medium text-center">
-                      Professional Service
-                      <br />
-                      <span className="text-xs opacity-80">
-                        Quality Guaranteed
-                      </span>
-                    </span>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="flex items-start justify-between">
-                    <h3 className="text-xl font-semibold text-[#F2F5F9] flex-1">
-                      {service.title}
-                    </h3>
-                    <span className="text-xs bg-[#00A6E6] text-white px-2 py-1 rounded-full ml-2 whitespace-nowrap">
-                      {service.duration}
-                    </span>
-                  </div>
-
-                  <p className="text-[#B9C4CC] leading-relaxed">
-                    {service.description}
-                  </p>
-
-                  <ul className="space-y-2">
-                    {service.features.map((feature, index) => (
-                      <li
-                        key={index}
-                        className="flex items-center text-sm text-[#B9C4CC]"
-                      >
-                        <span className="w-2 h-2 bg-[#00A6E6] rounded-full mr-3"></span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="pt-4">
-                    <button className="w-full btn-primary text-center justify-center">
-                      {service.cta}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* SERVICES CAROUSEL */}
+      <ServicesCarousel />
 
       {/* Branch Services Overview */}
       <section className="py-16 bg-linear-to-r from-[#001F3F] to-[#003366]">

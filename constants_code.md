@@ -454,6 +454,18 @@ export const FRAME_CATEGORIES = [
 ```
 
 ===============================
+  constants\homepage.ts
+===============================
+`$lang
+export const HERO_CAROUSEL_IMAGES = {
+  eyeExam: "/images/homepage/hero-carousel/eye-examination.png",
+  sameDaySpectacles: "/images/homepage/hero-carousel/same-day-spectacles.png",
+  expertOptometrists: "/images/homepage/hero-carousel/expert-optometrists.png",
+} as const;
+
+```
+
+===============================
   constants\index.ts
 ===============================
 `$lang
@@ -464,6 +476,7 @@ export * from "./testimonials";
 export * from "./branches";
 export * from "./contact";
 export * from "./booking";
+export * from "./homepage";
 export * from "./frames"; // âœ… Add this
 // We'll add more as we refactor other pages
 

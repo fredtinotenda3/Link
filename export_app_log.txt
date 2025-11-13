@@ -1,35 +1,35 @@
 ﻿
-2025-11-12 13:28:39   Found 31 file(s) under app/
-2025-11-12 13:28:39   Read: app\about\page.tsx
-2025-11-12 13:28:39   Read: app\admin\page.tsx
-2025-11-12 13:28:39   Read: app\api\appointments\[id]\status\route.ts
-2025-11-12 13:28:39   Read: app\api\appointments\route.ts
-2025-11-12 13:28:40   Read: app\api\appointments\user\route.ts
-2025-11-12 13:28:40   Read: app\api\auth\[...nextauth]\route.ts
-2025-11-12 13:28:40   Read: app\api\auth\register\route.ts
-2025-11-12 13:28:40   Read: app\api\debug-visionplus\route.ts
-2025-11-12 13:28:40   Read: app\api\discover\route.js
-2025-11-12 13:28:40   Read: app\api\sync\[id]\route.ts
-2025-11-12 13:28:40   Read: app\api\sync\background\route.ts
-2025-11-12 13:28:40   Read: app\api\test-notifications\route.ts
-2025-11-12 13:28:40   Read: app\api\test-visionplus\route.ts
-2025-11-12 13:28:40   Read: app\appointments\page.tsx
-2025-11-12 13:28:40   Read: app\auth\layout.tsx
-2025-11-12 13:28:40   Read: app\auth\login\LoginForm.tsx
-2025-11-12 13:28:40   Read: app\auth\login\page.tsx
-2025-11-12 13:28:40   Read: app\auth\signup\page.tsx
-2025-11-12 13:28:40   Read: app\book\page.tsx
-2025-11-12 13:28:40   Read: app\branches\page.tsx
-2025-11-12 13:28:40   Read: app\contact\page.tsx
-2025-11-12 13:28:40   Read: app\frames\page.tsx
-2025-11-12 13:28:40   Read: app\globals.css
-2025-11-12 13:28:40   Read: app\layout.tsx
-2025-11-12 13:28:40   Read: app\page.tsx
-2025-11-12 13:28:40   Read: app\profile\actions.ts
-2025-11-12 13:28:40   Read: app\profile\page.tsx
-2025-11-12 13:28:40   Read: app\services\page.tsx
-2025-11-12 13:28:40   Read: app\test-integration\page.tsx
-2025-11-12 13:28:40   Read: app\test-notifications\page.tsx
-2025-11-12 13:28:40   Read: app\test-visionplus\page.tsx
-2025-11-12 13:28:40  ✅ Wrote app_code.md — size: 185252 bytes
-2025-11-12 13:28:42  Done.
+2025-11-13 11:56:40   Found 31 file(s) under app/
+2025-11-13 11:56:40   Read: app\about\page.tsx
+2025-11-13 11:56:40   Read: app\admin\page.tsx
+2025-11-13 11:56:40   Read: app\api\appointments\[id]\status\route.ts
+2025-11-13 11:56:40   Read: app\api\appointments\route.ts
+2025-11-13 11:56:40   Read: app\api\appointments\user\route.ts
+2025-11-13 11:56:40   Read: app\api\auth\[...nextauth]\route.ts
+2025-11-13 11:56:40   Read: app\api\auth\register\route.ts
+2025-11-13 11:56:40   Read: app\api\debug-visionplus\route.ts
+2025-11-13 11:56:40   Read: app\api\discover\route.js
+2025-11-13 11:56:40   Read: app\api\sync\[id]\route.ts
+2025-11-13 11:56:40   Read: app\api\sync\background\route.ts
+2025-11-13 11:56:40   Read: app\api\test-notifications\route.ts
+2025-11-13 11:56:40   Read: app\api\test-visionplus\route.ts
+2025-11-13 11:56:40   Read: app\appointments\page.tsx
+2025-11-13 11:56:41   Read: app\auth\layout.tsx
+2025-11-13 11:56:41   Read: app\auth\login\LoginForm.tsx
+2025-11-13 11:56:41   Read: app\auth\login\page.tsx
+2025-11-13 11:56:41   Read: app\auth\signup\page.tsx
+2025-11-13 11:56:41   Read: app\book\page.tsx
+2025-11-13 11:56:41   Read: app\branches\page.tsx
+2025-11-13 11:56:41   Read: app\contact\page.tsx
+2025-11-13 11:56:41   Read: app\frames\page.tsx
+2025-11-13 11:56:41   Read: app\globals.css
+2025-11-13 11:56:41   Read: app\layout.tsx
+2025-11-13 11:56:41   Read: app\page.tsx
+2025-11-13 11:56:41   Read: app\profile\actions.ts
+2025-11-13 11:56:41   Read: app\profile\page.tsx
+2025-11-13 11:56:41   Read: app\services\page.tsx
+2025-11-13 11:56:41   Read: app\test-integration\page.tsx
+2025-11-13 11:56:41   Read: app\test-notifications\page.tsx
+2025-11-13 11:56:41   Read: app\test-visionplus\page.tsx
+2025-11-13 11:56:41   Wrote app_code.md  size: 178204 bytes
+2025-11-13 11:56:43  Done.
