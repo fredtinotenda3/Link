@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Navigation from "@/components/Navigation";
 // ✅ Specific constant imports
 import { TEAM_MEMBERS } from "@/constants/team";
@@ -163,12 +164,15 @@ export default function About() {
             {TEAM_MEMBERS.map((member: TeamMember) => (
               <div key={member.id} className="text-center">
                 {/* Team Member Photo */}
-                <div className="w-32 h-32 bg-linear-to-br from-[#0077B6] to-[#48CAE4] rounded-full mx-auto mb-6 flex items-center justify-center">
-                  <span className="text-white text-sm font-medium text-center">
-                    👨‍⚕️
-                    <br />
-                    <span className="text-xs">Photo</span>
-                  </span>
+                {/* Team Member Photo */}
+                <div className="w-32 h-32 rounded-full mx-auto mb-6 overflow-hidden border-2 border-[#00A6E6]">
+                  <Image
+                    src={member.image}
+                    alt={`${member.name} - ${member.role}`}
+                    width={128}
+                    height={128}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
                 <h3 className="text-xl font-bold text-[#F2F5F9] mb-2">

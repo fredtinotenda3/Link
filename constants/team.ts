@@ -9,7 +9,7 @@ export const TEAM_MEMBERS = [
       "Patient Care",
       "Strategic Planning",
     ],
-    image: "/images/team/richard-maveneka.jpg",
+    image: "/images/team/richard-maveneka.png",
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ export const TEAM_MEMBERS = [
       "Business Development",
       "Customer Service",
     ],
-    image: "/images/team/bismark-mateveka.jpg",
+    image: "/images/team/bismark-mateveka.png",
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ export const TEAM_MEMBERS = [
     role: "Director & Finance Manager",
     bio: "Lorraine oversees the financial health of Link Optical, ensuring sustainable growth while maintaining our commitment to affordable care.",
     expertise: ["Financial Management", "Strategic Planning", "Compliance"],
-    image: "/images/team/lorraine-mhiribidi.jpg",
+    image: "/images/team/lorraine-mhiribidi.png",
   },
   {
     id: 4,
@@ -41,6 +41,6 @@ export const TEAM_MEMBERS = [
       "Contact Lens Fitting",
       "Pediatric Optometry",
     ],
-    image: "/images/team/dr-masamba.jpg",
+    image: "/images/team/dr-masamba.png",
   },
 ] as const;

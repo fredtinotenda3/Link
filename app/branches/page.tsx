@@ -1,12 +1,23 @@
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
+import Image from "next/image";
 // ✅ Specific constant imports
 import { BRANCHES } from "@/constants/branches";
-import { BRANCH_FEATURES } from "@/constants/services"; // Branch features are in services constants
+import { BRANCH_FEATURES } from "@/constants/services";
 // ✅ Specific type imports
 import { Branch, BranchFeature } from "@/types";
 
 export default function Branches() {
+  // Function to generate Google Maps URL
+  const getGoogleMapsUrl = (branch: Branch) => {
+    return `https://www.google.com/maps?q=${branch.coordinates.lat},${branch.coordinates.lng}&ll=${branch.coordinates.lat},${branch.coordinates.lng}&z=15`;
+  };
+
+  // Function to generate Google Maps directions URL
+  const getGoogleMapsDirectionsUrl = (branch: Branch) => {
+    return `https://www.google.com/maps/dir/?api=1&destination=${branch.coordinates.lat},${branch.coordinates.lng}&travelmode=driving`;
+  };
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -104,15 +115,15 @@ export default function Branches() {
                     </span>
                   </div>
 
-                  {/* Branch Image Placeholder */}
-                  <div className="w-full h-48 bg-linear-to-br from-[#0077B6] to-[#48CAE4] rounded-xl mb-4 flex items-center justify-center">
-                    <span className="text-white text-sm font-medium text-center">
-                      📍 {branch.name}
-                      <br />
-                      <span className="text-xs opacity-80">
-                        Branch Location
-                      </span>
-                    </span>
+                  {/* Branch Image */}
+                  <div className="w-full h-48 rounded-xl mb-4 overflow-hidden border border-white/10">
+                    <Image
+                      src={branch.image}
+                      alt={`${branch.name} - ${branch.type}`}
+                      width={400}
+                      height={192}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                 </div>
 
@@ -195,14 +206,31 @@ export default function Branches() {
                     </div>
                   </div>
 
-                  {/* CTA Buttons */}
+                  {/* CTA Buttons - UPDATED WITH MAP LINKS */}
                   <div className="flex gap-3 pt-4">
                     <button className="flex-1 btn-primary text-sm py-2">
                       Book at {branch.name}
                     </button>
-                    <button className="btn-secondary text-sm py-2 px-4">
-                      Directions
-                    </button>
+                    <a
+                      href={getGoogleMapsDirectionsUrl(branch)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-secondary text-sm py-2 px-4 text-center"
+                    >
+                      🗺️ Directions
+                    </a>
+                  </div>
+
+                  {/* Quick Map Link */}
+                  <div className="border-t border-white/10 pt-3">
+                    <a
+                      href={getGoogleMapsUrl(branch)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 text-[#00A6E6] hover:text-[#48CAE4] text-sm font-medium transition-colors"
+                    >
+                      <span>📍 View on Google Maps</span>
+                    </a>
                   </div>
                 </div>
               </div>

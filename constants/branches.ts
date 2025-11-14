@@ -23,7 +23,7 @@ export const BRANCHES = [
       "Medical aid billing",
     ],
     coordinates: { lat: -17.8292, lng: 31.0522 },
-    image: "/images/branches/robinson-house.jpg",
+    image: "/images/branches/robinson-house.png",
   },
   {
     id: 2,
@@ -49,7 +49,7 @@ export const BRANCHES = [
       "Expert optometrists",
     ],
     coordinates: { lat: -17.81, lng: 31.04 },
-    image: "/images/branches/kensington.jpg",
+    image: "/images/branches/kensington.png",
   },
   {
     id: 3,
@@ -70,7 +70,7 @@ export const BRANCHES = [
       "Personal styling",
     ],
     coordinates: { lat: -17.8, lng: 31.1 },
-    image: "/images/branches/honeydew.jpg",
+    image: "/images/branches/honeydew.png",
   },
   {
     id: 4,
@@ -96,7 +96,7 @@ export const BRANCHES = [
       "Local expertise",
     ],
     coordinates: { lat: -20.2, lng: 32.62 },
-    image: "/images/branches/chipinge.jpg",
+    image: "/images/branches/chipinge.png",
   },
   {
     id: 5,
@@ -122,6 +122,6 @@ export const BRANCHES = [
       "Agricultural focus",
     ],
     coordinates: { lat: -21.05, lng: 31.6667 },
-    image: "/images/branches/chiredzi.jpg",
+    image: "/images/branches/chiredzi.png",
   },
 ] as const;

@@ -2,10 +2,28 @@
 
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
+import { useState } from "react";
 
 export default function Navigation() {
   const { data: session, status } = useSession();
   const isLoading = status === "loading";
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  const navigationLinks = [
+    { href: "/", label: "Home" },
+    { href: "/services", label: "Services" },
+    { href: "/branches", label: "Branches" },
+    { href: "/about", label: "About" },
+    { href: "/contact", label: "Contact" },
+  ];
 
   return (
     <header className="sticky top-0 z-50 bg-[#001F3F]/90 backdrop-blur-md border-b border-[#2C3E50]">
@@ -24,47 +42,24 @@ export default function Navigation() {
             </Link>
           </div>
 
-          {/* Navigation */}
+          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link
-              href="/"
-              className="text-[#F2F5F9] hover:text-[#00A6E6] transition-colors"
-            >
-              Home
-            </Link>
-            <Link
-              href="/services"
-              className="text-[#B9C4CC] hover:text-[#00A6E6] transition-colors"
-            >
-              Services
-            </Link>
-            <Link
-              href="/branches"
-              className="text-[#B9C4CC] hover:text-[#00A6E6] transition-colors"
-            >
-              Branches
-            </Link>
-            <Link
-              href="/about"
-              className="text-[#B9C4CC] hover:text-[#00A6E6] transition-colors"
-            >
-              About
-            </Link>
-            <Link
-              href="/contact"
-              className="text-[#B9C4CC] hover:text-[#00A6E6] transition-colors"
-            >
-              Contact
-            </Link>
+            {navigationLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-[#B9C4CC] hover:text-[#00A6E6] transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
           </nav>
 
           {/* CTA Buttons - Dynamic based on auth state */}
-          <div className="flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4">
             {isLoading ? (
-              // Loading state
               <div className="w-20 h-10 bg-white/5 rounded-lg animate-pulse"></div>
             ) : session ? (
-              // Authenticated state
               <>
                 <Link href="/book" className="btn-primary">
                   Book Appointment
@@ -90,7 +85,6 @@ export default function Navigation() {
                 </div>
               </>
             ) : (
-              // Unauthenticated state
               <>
                 <Link href="/auth/login" className="btn-secondary">
                   Sign In
@@ -101,6 +95,111 @@ export default function Navigation() {
               </>
             )}
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={toggleMobileMenu}
+            className="md:hidden flex flex-col items-center justify-center w-10 h-10 text-[#F2F5F9] hover:text-[#00A6E6] transition-colors"
+            aria-label="Toggle menu"
+          >
+            <span
+              className={`block w-6 h-0.5 bg-current transition-all duration-300 ${
+                isMobileMenuOpen
+                  ? "rotate-45 translate-y-1.5"
+                  : "-translate-y-1"
+              }`}
+            />
+            <span
+              className={`block w-6 h-0.5 bg-current transition-all duration-300 ${
+                isMobileMenuOpen ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <span
+              className={`block w-6 h-0.5 bg-current transition-all duration-300 ${
+                isMobileMenuOpen
+                  ? "-rotate-45 -translate-y-1.5"
+                  : "translate-y-1"
+              }`}
+            />
+          </button>
+        </div>
+
+        {/* Mobile Navigation Menu */}
+        <div
+          className={`md:hidden transition-all duration-300 overflow-hidden ${
+            isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <nav className="py-4 border-t border-white/10">
+            <div className="space-y-4">
+              {/* Navigation Links */}
+              {navigationLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={closeMobileMenu}
+                  className="block text-lg text-[#F2F5F9] hover:text-[#00A6E6] transition-colors py-2"
+                >
+                  {link.label}
+                </Link>
+              ))}
+
+              {/* Mobile Auth Buttons */}
+              <div className="pt-4 border-t border-white/10 space-y-3">
+                {isLoading ? (
+                  <div className="h-10 bg-white/5 rounded-lg animate-pulse"></div>
+                ) : session ? (
+                  <>
+                    <Link
+                      href="/book"
+                      onClick={closeMobileMenu}
+                      className="block w-full btn-primary text-center py-3"
+                    >
+                      Book Appointment
+                    </Link>
+                    <div className="grid grid-cols-2 gap-3">
+                      <Link
+                        href="/profile"
+                        onClick={closeMobileMenu}
+                        className="btn-secondary text-center py-2"
+                      >
+                        My Profile
+                      </Link>
+                      <button
+                        onClick={() => {
+                          closeMobileMenu();
+                          signOut();
+                        }}
+                        className="btn-secondary text-center py-2"
+                      >
+                        Sign Out
+                      </button>
+                    </div>
+                    <p className="text-center text-[#B9C4CC] text-sm">
+                      Hello, {session.user.firstName}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/auth/signup"
+                      onClick={closeMobileMenu}
+                      className="block w-full btn-primary text-center py-3"
+                    >
+                      Book Appointment
+                    </Link>
+                    <Link
+                      href="/auth/login"
+                      onClick={closeMobileMenu}
+                      className="block w-full btn-secondary text-center py-3"
+                    >
+                      Sign In
+                    </Link>
+                  </>
+                )}
+              </div>
+            </div>
+          </nav>
         </div>
       </div>
     </header>
