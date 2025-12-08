@@ -1,7 +1,7 @@
+// app\about\page.tsx - OPTIMIZED VERSION
 import Link from "next/link";
 import Image from "next/image";
 import Navigation from "@/components/Navigation";
-// ✅ Specific constant imports
 import { TEAM_MEMBERS } from "@/constants/team";
 import {
   COMPANY_TIMELINE,
@@ -9,8 +9,7 @@ import {
   MISSION_STATEMENT,
   COMPANY_STATS,
 } from "@/constants/company";
-import { CERTIFICATIONS } from "@/constants/company"; // Certifications are in company constants
-// ✅ Specific type imports
+import { CERTIFICATIONS } from "@/constants/company";
 import { TeamMember, TimelineItem, CompanyValue } from "@/types";
 
 export default function About() {
@@ -18,7 +17,7 @@ export default function About() {
     <div className="min-h-screen">
       <Navigation />
 
-      {/* Hero Section */}
+      {/* Hero Section - OPTIMIZED */}
       <section className="py-20 bg-linear-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
         <div className="container-premium">
           <div className="text-center max-w-4xl mx-auto">
@@ -31,9 +30,9 @@ export default function About() {
             </h1>
 
             <p className="text-xl md:text-2xl text-[#B9C4CC] mb-8 leading-relaxed">
-              For over 15 years, Link Optical has been transforming vision and
-              changing lives across Zimbabwe through premium eye care
-              that&apos;s accessible to everyone.
+              For over 15 years, Link Optical has been helping people in
+              Zimbabwe with eye tests, prescription glasses, and lens fittings
+              at our branches.
             </p>
 
             {/* Quick Stats */}
@@ -42,13 +41,15 @@ export default function About() {
                 <div className="text-2xl font-bold text-[#00A6E6]">
                   {COMPANY_STATS.yearsExperience}
                 </div>
-                <div className="text-sm text-[#B9C4CC]">Years Experience</div>
+                <div className="text-sm text-[#B9C4CC]">Years in operation</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-[#00A6E6]">
                   {COMPANY_STATS.patientsServed}
                 </div>
-                <div className="text-sm text-[#B9C4CC]">Patients Served</div>
+                <div className="text-sm text-[#B9C4CC]">
+                  People we've served
+                </div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-[#00A6E6]">
@@ -60,37 +61,33 @@ export default function About() {
                 <div className="text-2xl font-bold text-[#00A6E6]">
                   {COMPANY_STATS.sameDayService}
                 </div>
-                <div className="text-sm text-[#B9C4CC]">Day Service</div>
+                <div className="text-sm text-[#B9C4CC]">
+                  Day service for glasses
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Our Story Timeline */}
+      {/* Our Story Timeline - OPTIMIZED */}
       <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#0E2433]">
         <div className="container-premium">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Our Journey of Excellence
-            </h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Journey</h2>
             <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
-              From humble beginnings to becoming a trusted name in Zimbabwean
-              eye care
+              How we've grown to serve communities across Zimbabwe
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
             {COMPANY_TIMELINE.map((item: TimelineItem, index) => (
               <div key={index} className="flex gap-8 mb-12 last:mb-0">
-                {/* Year */}
                 <div className="shrink-0 w-24">
                   <div className="bg-[#00A6E6] text-white rounded-lg py-2 px-4 text-center">
                     <span className="font-bold text-lg">{item.year}</span>
                   </div>
                 </div>
-
-                {/* Content */}
                 <div className="flex-1">
                   <div className="bg-white/5 rounded-xl p-6 border border-white/10">
                     <h3 className="text-xl font-bold text-[#F2F5F9] mb-3">
@@ -107,16 +104,15 @@ export default function About() {
         </div>
       </section>
 
-      {/* Mission & Values */}
+      {/* Mission & Values - OPTIMIZED */}
       <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#002851]">
         <div className="container-premium">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Our Mission & Values
+              What Guides Us
             </h2>
             <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
-              Guided by our commitment to excellence and accessibility in eye
-              care
+              Our approach to eye care in Zimbabwe
             </p>
           </div>
 
@@ -148,23 +144,21 @@ export default function About() {
         </div>
       </section>
 
-      {/* Meet the Team */}
+      {/* Meet the Team - OPTIMIZED */}
       <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#0E2433]">
         <div className="container-premium">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Meet Our Leadership Team
+              Meet Our Team
             </h2>
             <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
-              Experienced professionals dedicated to your vision health
+              The people who help with your eye care needs
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {TEAM_MEMBERS.map((member: TeamMember) => (
               <div key={member.id} className="text-center">
-                {/* Team Member Photo */}
-                {/* Team Member Photo */}
                 <div className="w-32 h-32 rounded-full mx-auto mb-6 overflow-hidden border-2 border-[#00A6E6]">
                   <Image
                     src={member.image}
@@ -202,15 +196,15 @@ export default function About() {
         </div>
       </section>
 
-      {/* Certifications & Trust */}
+      {/* Memberships - OPTIMIZED */}
       <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#002851]">
         <div className="container-premium">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Trusted & Certified
+              Our Memberships
             </h2>
             <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
-              Committed to the highest standards of professional eye care
+              We're part of these eye care organizations in Zimbabwe
             </p>
           </div>
 
@@ -218,7 +212,7 @@ export default function About() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {CERTIFICATIONS.map((cert, index) => (
                 <div key={index} className="flex items-center gap-3">
-                  <span className="text-[#00A6E6]">✅</span>
+                  <span className="text-[#00A6E6]">✓</span>
                   <span className="text-[#F2F5F9] font-medium">{cert}</span>
                 </div>
               ))}
@@ -227,31 +221,30 @@ export default function About() {
         </div>
       </section>
 
-      {/* CTA Section - Keep as is since it's mostly UI */}
+      {/* CTA Section - OPTIMIZED */}
       <section className="py-20 bg-linear-to-r from-[#001F3F] to-[#0077B6]">
         <div className="container-premium">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Experience Our Difference
+              Ready for Your Eye Test?
             </h2>
             <p className="text-xl text-[#B9C4CC] mb-8">
-              Join thousands of satisfied patients who trust Link Optical with
-              their vision care
+              Book an appointment at any of our 5 branches across Zimbabwe
             </p>
 
             <div className="bg-white/10 rounded-xl p-6 mb-8 border border-white/20">
               <div className="grid md:grid-cols-3 gap-4 text-sm">
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-[#00A6E6]">🕐🔄</span>
-                  <span className="text-[#F2F5F9]">15+ Years Experience</span>
+                  <span className="text-[#00A6E6]">📅</span>
+                  <span className="text-[#F2F5F9]">15+ Years in operation</span>
                 </div>
                 <div className="flex items-center justify-center gap-2">
                   <span className="text-[#00A6E6]">⚡</span>
-                  <span className="text-[#F2F5F9]">Same-Day Service</span>
+                  <span className="text-[#F2F5F9]">Same-Day Glasses</span>
                 </div>
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-[#00A6E6]">💼</span>
-                  <span className="text-[#F2F5F9]">Premium Quality</span>
+                  <span className="text-[#00A6E6]">🏥</span>
+                  <span className="text-[#F2F5F9]">Medical Aid Accepted</span>
                 </div>
               </div>
             </div>
@@ -266,8 +259,7 @@ export default function About() {
             </div>
 
             <p className="text-[#B9C4CC] text-sm mt-4">
-              Family-owned since 2008 • Committed to Zimbabwe • Quality you can
-              trust
+              Family-owned since 2008 • Serving Zimbabwe • Walk-ins welcome
             </p>
           </div>
         </div>

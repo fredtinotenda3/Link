@@ -1,3 +1,4 @@
+// components/services/ServicesHero.tsx - REFACTORED VERSION
 "use client";
 
 import { useSession } from "next-auth/react";
@@ -22,7 +23,7 @@ export default function ServicesHero() {
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/services/hero-banner.png"
-          alt="Professional optometry services"
+          alt="Optometry services"
           fill
           className="object-cover"
           priority
@@ -36,10 +37,10 @@ export default function ServicesHero() {
           {/* Main Headline */}
           <div className="mb-12">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight">
-              <span className="text-[#F2F5F9]">Your Vision</span>
+              <span className="text-[#F2F5F9]">Eye Care</span>
               <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-[#00A6E6] to-[#48CAE4]">
-                Our Passion
+                Services
               </span>
             </h1>
           </div>
@@ -47,12 +48,11 @@ export default function ServicesHero() {
           {/* Sub-headline */}
           <div className="mb-16">
             <p className="text-3xl md:text-4xl text-[#F2F5F9] font-semibold mb-8">
-              Expert Eye Care You Can Trust
+              Eye Tests and Glasses in Zimbabwe
             </p>
             <p className="text-xl md:text-2xl text-[#B9C4CC] leading-relaxed max-w-4xl mx-auto">
-              Led by experienced optometrists with 15+ years serving Zimbabwe,
-              we combine cutting-edge technology with personalized care for
-              vision that transforms lives.
+              With experience serving Zimbabwe, we provide eye tests, glasses,
+              and contact lenses at our branches.
             </p>
           </div>
 
@@ -73,9 +73,7 @@ export default function ServicesHero() {
           {/* Scroll Indicator */}
           <div className="animate-bounce">
             <div className="text-[#00A6E6] text-lg">↓</div>
-            <div className="text-[#B9C4CC] text-sm mt-2">
-              Explore Our Services
-            </div>
+            <div className="text-[#B9C4CC] text-sm mt-2">Explore Services</div>
           </div>
         </div>
       </div>

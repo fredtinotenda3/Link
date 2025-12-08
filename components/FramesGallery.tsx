@@ -1,3 +1,4 @@
+// components/FramesGallery.tsx - REFACTORED VERSION
 "use client";
 
 import { useState } from "react";
@@ -132,7 +133,7 @@ export default function FramesGallery() {
       {/* Lenses Section */}
       <div className="bg-white/5 rounded-2xl p-8 border border-white/10">
         <h2 className="text-3xl font-bold text-[#F2F5F9] mb-8 text-center">
-          Advanced Lens Technology
+          Lens Options
         </h2>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -167,12 +168,11 @@ export default function FramesGallery() {
       {/* CTA Section */}
       <div className="text-center bg-white/5 rounded-2xl p-8 border border-white/10">
         <h3 className="text-2xl font-bold text-[#F2F5F9] mb-4">
-          Ready to Find Your Perfect Frames?
+          Ready to Look at Frames?
         </h3>
         <p className="text-[#B9C4CC] mb-6 max-w-2xl mx-auto">
-          Visit any of our 5 branches across Zimbabwe for a free consultation
-          and frame fitting. Our expert staff will help you find the perfect
-          frames for your style and prescription needs.
+          Visit any of our 5 branches for a consultation and frame fitting. Our
+          staff will help you find frames for your style and prescription needs.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="/book" className="btn-primary">

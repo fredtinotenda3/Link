@@ -1,3 +1,4 @@
+// app\page.tsx - REFACTORED VERSION
 "use client";
 
 import Navigation from "@/components/Navigation";

@@ -1,37 +1,38 @@
+// constants/testimonials.ts - REFACTORED VERSION
 export const TESTIMONIALS = [
   {
     id: 1,
     name: "Sarah M.",
     location: "Harare",
-    text: "Got my spectacles the same day! The quality is exceptional and the service was incredibly professional.",
+    text: "Got my glasses the same day. The service was good and I got help when needed.",
     rating: 5,
   },
   {
     id: 2,
     name: "Thomas C.",
     location: "Chiredzi",
-    text: "Best eye test I've ever had. The optometrist explained everything clearly and found issues others missed.",
+    text: "Had an eye test that was thorough. The staff explained things clearly.",
     rating: 5,
   },
   {
     id: 3,
     name: "Grace K.",
     location: "Chipinge",
-    text: "The contact lens fitting was so comfortable. Finally found lenses that work for my sensitive eyes!",
+    text: "The contact lens fitting worked for me. Found lenses that are comfortable.",
     rating: 5,
   },
   {
     id: 4,
     name: "David L.",
     location: "Kensington",
-    text: "Same-day service saved me when I broke my glasses. Amazing quality and fast turnaround!",
+    text: "Same-day service helped when I needed glasses quickly. Turnaround was fast.",
     rating: 5,
   },
   {
     id: 5,
     name: "Lisa P.",
     location: "Greendale",
-    text: "Professional team that genuinely cares about your eye health. Highly recommended!",
+    text: "Team that helps with eye health. Would go again for eye care needs.",
     rating: 5,
   },
 ] as const;

@@ -1,3 +1,4 @@
+// components/homepage/TestimonialSection.tsx - REFACTORED VERSION
 "use client";
 
 import { useState, useEffect } from "react";
@@ -21,11 +22,9 @@ export default function TestimonialSection() {
     <section className="py-20 bg-linear-to-r from-[#001F3F] to-[#0077B6]">
       <div className="container-premium">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Loved by Our Patients
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">Feedback</h2>
           <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
-            Real stories from real people across Zimbabwe
+            Comments from people who used our services
           </p>
         </div>
 
@@ -35,14 +34,14 @@ export default function TestimonialSection() {
             <div className="flex justify-center mb-6">
               {[...Array(testimonial.rating)].map((_, i) => (
                 <span key={i} className="text-yellow-400 text-2xl">
-                  ⭐
+                  ★
                 </span>
               ))}
             </div>
 
             {/* Testimonial Text */}
             <blockquote className="text-xl text-[#F2F5F9] text-center italic mb-8 leading-relaxed">
-              "{testimonial.text}"
+              &quot;{testimonial.text}&quot;
             </blockquote>
 
             {/* Author */}
@@ -76,23 +75,23 @@ export default function TestimonialSection() {
             <div className="text-3xl font-bold text-[#00A6E6]">
               {COMPANY_STATS.patientsServed}
             </div>
-            <div className="text-sm text-[#B9C4CC]">Patients Served</div>
+            <div className="text-sm text-[#B9C4CC]">People served</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-[#00A6E6]">99%</div>
-            <div className="text-sm text-[#B9C4CC]">Satisfaction Rate</div>
+            <div className="text-3xl font-bold text-[#00A6E6]">Many</div>
+            <div className="text-sm text-[#B9C4CC]">Return for services</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-[#00A6E6]">
               {COMPANY_STATS.yearsExperience}
             </div>
-            <div className="text-sm text-[#B9C4CC]">Years Experience</div>
+            <div className="text-sm text-[#B9C4CC]">Years operating</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-[#00A6E6]">
               {COMPANY_STATS.branches}
             </div>
-            <div className="text-sm text-[#B9C4CC]">Branches Nationwide</div>
+            <div className="text-sm text-[#B9C4CC]">Branches in Zimbabwe</div>
           </div>
         </div>
       </div>

@@ -1,3 +1,4 @@
+// app\branches\page.tsx - COMPLETE REFACTORED VERSION
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
 import Image from "next/image";
@@ -35,9 +36,8 @@ export default function Branches() {
             </h1>
 
             <p className="text-xl md:text-2xl text-[#B9C4CC] mb-8 leading-relaxed">
-              Same premium eye care, five convenient locations across Zimbabwe.
-              Experience expert service and same-day spectacles wherever you
-              are.
+              Same eye care services at five locations across Zimbabwe. Get eye
+              tests and same-day glasses wherever you are.
             </p>
 
             {/* Quick Stats */}
@@ -48,11 +48,11 @@ export default function Branches() {
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-[#00A6E6]">15+</div>
-                <div className="text-sm text-[#B9C4CC]">Years Serving</div>
+                <div className="text-sm text-[#B9C4CC]">Years operating</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-[#00A6E6]">Same</div>
-                <div className="text-sm text-[#B9C4CC]">Day Service</div>
+                <div className="text-sm text-[#B9C4CC]">Day service</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-[#00A6E6]">All</div>
@@ -68,11 +68,11 @@ export default function Branches() {
         <div className="container-premium">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Premium Care, Every Location
+              Services at All Locations
             </h2>
             <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
-              The same high-quality service, expert staff, and advanced
-              technology at all our branches
+              The same eye care services, staff, and equipment at all our
+              branches
             </p>
           </div>
 
@@ -206,7 +206,7 @@ export default function Branches() {
                     </div>
                   </div>
 
-                  {/* CTA Buttons - UPDATED WITH MAP LINKS */}
+                  {/* CTA Buttons */}
                   <div className="flex gap-3 pt-4">
                     <button className="flex-1 btn-primary text-sm py-2">
                       Book at {branch.name}
@@ -217,7 +217,7 @@ export default function Branches() {
                       rel="noopener noreferrer"
                       className="btn-secondary text-sm py-2 px-4 text-center"
                     >
-                      🗺️ Directions
+                      🚗 Directions
                     </a>
                   </div>
 
@@ -247,8 +247,8 @@ export default function Branches() {
               Visit Us Today
             </h2>
             <p className="text-xl text-[#B9C4CC] mb-8">
-              Experience the Link Optical difference at a branch near you. Same
-              premium care, same expert service, wherever you are in Zimbabwe.
+              Come to any of our 5 branches across Zimbabwe for eye tests and
+              glasses.
             </p>
 
             <div className="bg-white/10 rounded-xl p-6 mb-8 border border-white/20">
@@ -259,10 +259,10 @@ export default function Branches() {
                 </div>
                 <div className="flex items-center justify-center gap-2">
                   <span className="text-[#00A6E6]">👨‍⚕️</span>
-                  <span className="text-[#F2F5F9]">Expert Optometrists</span>
+                  <span className="text-[#F2F5F9]">Eye care staff</span>
                 </div>
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-[#00A6E6]">💳</span>
+                  <span className="text-[#00A6E6]">🏥</span>
                   <span className="text-[#F2F5F9]">Medical Aid Accepted</span>
                 </div>
               </div>

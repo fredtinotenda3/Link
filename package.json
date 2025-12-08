@@ -11,6 +11,7 @@
     "discover": "node scripts/discover-endpoints.mjs"
   },
   "dependencies": {
+    "-": "^0.0.1",
     "@auth/prisma-adapter": "^2.11.1",
     "@clerk/nextjs": "^6.35.0",
     "@prisma/client": "^6.19.0",
@@ -45,6 +46,7 @@
     "@types/pg": "^8.15.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "baseline-browser-mapping": "^2.9.4",
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
     "tailwindcss": "^4",

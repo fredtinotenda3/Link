@@ -1,3 +1,4 @@
+// components/homepage/FinalCTA.tsx - VERIFIED COMPLIANT
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { MEDICAL_AIDS } from "@/constants/services";
@@ -20,12 +21,10 @@ export default function FinalCTA() {
       <div className="container-premium">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Ready to See Clearly?
+            Ready for an Eye Test?
           </h2>
           <p className="text-xl text-[#B9C4CC] mb-8">
-            Join thousands of satisfied patients who trust Link Optical with
-            their vision care. Book your appointment today and experience the
-            difference.
+            Book an appointment and get your eye test at any of our branches.
           </p>
 
           {/* Medical Aids Assurance */}
@@ -36,17 +35,17 @@ export default function FinalCTA() {
                 <span className="text-[#F2F5F9]">Same-Day Service</span>
               </div>
               <div className="flex items-center justify-center gap-2">
-                <span className="text-[#00A6E6]">🛡️</span>
+                <span className="text-[#00A6E6]">🏥</span>
                 <span className="text-[#F2F5F9]">Medical Aid Accepted</span>
               </div>
               <div className="flex items-center justify-center gap-2">
-                <span className="text-[#00A6E6]">🎯</span>
-                <span className="text-[#F2F5F9]">Expert Optometrists</span>
+                <span className="text-[#00A6E6]">👨‍⚕️</span>
+                <span className="text-[#F2F5F9]">Eye care services</span>
               </div>
             </div>
             <div className="mt-4 text-center">
               <p className="text-[#B9C4CC] text-sm">
-                Accepted: {MEDICAL_AIDS.slice(0, 3).join(", ")} +{" "}
+                We accept: {MEDICAL_AIDS.slice(0, 3).join(", ")} +{" "}
                 {MEDICAL_AIDS.length - 3} more
               </p>
             </div>
@@ -71,10 +70,7 @@ export default function FinalCTA() {
 
           {/* Additional Info */}
           <div className="mt-8 text-[#B9C4CC] text-sm">
-            <p>
-              📍 5 locations nationwide • 📞 24/7 support • 💰 Affordable
-              pricing
-            </p>
+            <p>📍 5 locations • 📞 Phone support • 💰 Clear pricing</p>
           </div>
         </div>
       </div>

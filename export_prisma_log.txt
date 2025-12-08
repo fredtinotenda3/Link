@@ -1,5 +1,0 @@
-﻿
-2025-11-13 11:58:14   Found  file(s) under prisma/
-2025-11-13 11:58:15   Read: prisma\schema.prisma
-2025-11-13 11:58:15   Wrote prisma_code.md  size: 2687 bytes
-2025-11-13 11:58:16  Done.

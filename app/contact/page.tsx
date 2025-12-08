@@ -1,3 +1,4 @@
+// app\contact\page.tsx - REFACTORED VERSION
 import Navigation from "@/components/Navigation";
 // ✅ Specific constant imports
 import { BRANCHES } from "@/constants/branches";
@@ -23,9 +24,8 @@ export default function Contact() {
             </h1>
 
             <p className="text-xl md:text-2xl text-[#B9C4CC] mb-8 leading-relaxed">
-              We&apos;re here to help with all your eye care needs. Reach out to
-              us through any channel and experience our commitment to
-              exceptional service.
+              We're here to help with eye care needs. Contact us through any
+              channel for help with appointments and services.
             </p>
 
             {/* Quick Contact Stats */}
@@ -36,7 +36,7 @@ export default function Contact() {
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-[#00A6E6]">24h</div>
-                <div className="text-sm text-[#B9C4CC]">Response Time</div>
+                <div className="text-sm text-[#B9C4CC]">Response time</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-[#00A6E6]">All</div>
@@ -58,11 +58,10 @@ export default function Contact() {
         <div className="container-premium">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Multiple Ways to Connect
+              Ways to Contact Us
             </h2>
             <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
-              Choose the method that works best for you. We&apos;re ready to
-              assist.
+              Choose the way that works for you. We're ready to help.
             </p>
           </div>
 
@@ -104,9 +103,8 @@ export default function Contact() {
                 Send Us a Message
               </h2>
               <p className="text-[#B9C4CC] mb-8">
-                Have questions about our services? Need help with an
-                appointment? Fill out the form below and we&apos;ll get back to
-                you promptly.
+                Have questions about services? Need help with an appointment?
+                Fill out the form below and we'll reply.
               </p>
 
               <form className="space-y-6">
@@ -195,7 +193,7 @@ export default function Contact() {
                 Branch Contact Details
               </h2>
               <p className="text-[#B9C4CC] mb-8">
-                Find contact information for all our locations across Zimbabwe.
+                Contact information for all our locations in Zimbabwe.
               </p>
 
               <div className="space-y-6">
@@ -273,10 +271,10 @@ export default function Contact() {
         <div className="container-premium">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Frequently Asked Questions
+              Common Questions
             </h2>
             <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
-              Quick answers to common questions about our services
+              Answers to questions about our services
             </p>
           </div>
 
@@ -301,11 +299,11 @@ export default function Contact() {
         <div className="container-premium">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Ready to Improve Your Vision?
+              Ready for an Eye Test?
             </h2>
             <p className="text-xl text-[#B9C4CC] mb-8">
-              Don&apos;t wait to experience better vision. Contact us today and
-              take the first step toward clearer sight.
+              Contact us today to book an appointment for an eye test at any
+              branch.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -321,8 +319,8 @@ export default function Contact() {
             </div>
 
             <p className="text-[#B9C4CC] text-sm mt-4">
-              Emergency eye care available • All medical aids accepted •
-              Family-friendly service
+              Emergency eye care available • All medical aids accepted • Family
+              services
             </p>
           </div>
         </div>

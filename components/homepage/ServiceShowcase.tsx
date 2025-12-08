@@ -1,3 +1,4 @@
+// components/homepage/ServiceShowcase.tsx - REFACTORED VERSION
 import Link from "next/link";
 import { SERVICES } from "@/constants/services";
 
@@ -9,12 +10,9 @@ export default function ServiceShowcase() {
     <section className="py-20 bg-linear-to-b from-[#001F3F] to-[#0E2433]">
       <div className="container-premium">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Our Premium Services
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Services</h2>
           <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
-            Comprehensive eye care solutions with same-day service and expert
-            care
+            Eye care services with same-day service at our branches
           </p>
         </div>
 

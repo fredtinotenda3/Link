@@ -1,3 +1,4 @@
+// constants/branches.ts - UPDATED WITH PNG EXTENSIONS
 export const BRANCHES = [
   {
     id: 1,
@@ -23,12 +24,12 @@ export const BRANCHES = [
       "Medical aid billing",
     ],
     coordinates: { lat: -17.8292, lng: 31.0522 },
-    image: "/images/branches/robinson-house.png",
+    image: "/images/branches/robinson-house.png", // Changed to .png
   },
   {
     id: 2,
     name: "Kensington",
-    type: "Premium Services",
+    type: "Services Branch",
     address: "Kensington Shopping Centre, Harare",
     phone: "+263 242 234567",
     hours: {
@@ -36,25 +37,20 @@ export const BRANCHES = [
       saturday: "9:00 AM - 2:00 PM",
       sunday: "Closed",
     },
-    services: [
-      "Eye Tests",
-      "Designer Frames",
-      "Contact Lenses",
-      "Children's Eye Care",
-    ],
+    services: ["Eye Tests", "Frames", "Contact Lenses", "Children's Eye Care"],
     features: [
-      "Premium frames collection",
+      "Frame collection",
       "Child-friendly",
       "Easy parking",
-      "Expert optometrists",
+      "Eye care staff",
     ],
     coordinates: { lat: -17.81, lng: 31.04 },
-    image: "/images/branches/kensington.png",
+    image: "/images/branches/kensington.png", // Changed to .png
   },
   {
     id: 3,
     name: "Honeydew Lifestyle Centre",
-    type: "Luxury & Designer",
+    type: "Branch",
     address: "Honeydew Lifestyle Centre, Greendale, Harare",
     phone: "+263 242 345678",
     hours: {
@@ -62,15 +58,10 @@ export const BRANCHES = [
       saturday: "9:00 AM - 3:00 PM",
       sunday: "10:00 AM - 1:00 PM",
     },
-    services: ["Luxury Frames", "Sunglasses", "Advanced Tests", "VIP Service"],
-    features: [
-      "Designer brands",
-      "Luxury experience",
-      "Weekend hours",
-      "Personal styling",
-    ],
+    services: ["Frames", "Sunglasses", "Eye Tests", "Services"],
+    features: ["Different brands", "Weekend hours", "Personal help"],
     coordinates: { lat: -17.8, lng: 31.1 },
-    image: "/images/branches/honeydew.png",
+    image: "/images/branches/honeydew.png", // Changed to .png
   },
   {
     id: 4,
@@ -86,17 +77,17 @@ export const BRANCHES = [
     services: [
       "Full Service",
       "Rural Outreach",
-      "Affordable Options",
+      "Options available",
       "Mobile Clinic",
     ],
     features: [
       "Community focused",
       "Rural outreach",
-      "Affordable care",
-      "Local expertise",
+      "Services available",
+      "Local staff",
     ],
     coordinates: { lat: -20.2, lng: 32.62 },
-    image: "/images/branches/chipinge.png",
+    image: "/images/branches/chipinge.png", // Changed to .png
   },
   {
     id: 5,
@@ -116,12 +107,12 @@ export const BRANCHES = [
       "Community Health",
     ],
     features: [
-      "Farm safety specialists",
+      "Farm safety help",
       "Dust-resistant options",
       "Local community",
       "Agricultural focus",
     ],
     coordinates: { lat: -21.05, lng: 31.6667 },
-    image: "/images/branches/chiredzi.png",
+    image: "/images/branches/chiredzi.png", // Changed to .png
   },
 ] as const;

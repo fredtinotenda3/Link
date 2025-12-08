@@ -1,15 +1,15 @@
+// constants/services.ts - EXTRA SAFE VERSION
 export const SERVICES = [
   {
     id: 1,
-    title: "Comprehensive Eye Examinations",
-    description:
-      "Thorough eye health assessments using state-of-the-art diagnostic equipment",
+    title: "Eye Examinations",
+    description: "Eye health checks",
     icon: "👁️",
     features: [
       "Digital retinal imaging",
       "Visual field testing",
-      "Color vision assessment",
-      "Prescription accuracy check",
+      "Color vision check",
+      "Prescription check",
       "Eye pressure measurement",
     ],
     image: "/images/services/eye-exam.png",
@@ -19,15 +19,14 @@ export const SERVICES = [
   {
     id: 2,
     title: "Contact Lenses",
-    description:
-      "Expert fitting for all types of contact lenses with comprehensive aftercare",
+    description: "Fitting for contact lenses",
     icon: "🔍",
     features: [
       "Daily & monthly disposables",
-      "Toric lenses for astigmatism",
+      "Lenses for astigmatism",
       "Multifocal & bifocal options",
-      "Cosmetic & colored lenses",
-      "Professional fitting service",
+      "Colored lenses",
+      "Fitting service",
     ],
     image: "/images/services/contact-lenses.png",
     cta: "Explore Lenses",
@@ -36,15 +35,14 @@ export const SERVICES = [
   {
     id: 3,
     title: "Spectacles & Frames",
-    description:
-      "Premium frames with same-day lens manufacturing in our in-house lab",
+    description: "Frames with lenses",
     icon: "👓",
     features: [
       "Same-day service available",
-      "500+ frame styles",
+      "Frame styles",
       "Blue light protection",
       "Anti-reflective coating",
-      "Custom lens fitting",
+      "Lens fitting",
     ],
     image: "/images/services/spectacles.png",
     cta: "Browse Frames",
@@ -53,13 +51,12 @@ export const SERVICES = [
   {
     id: 4,
     title: "In-House Laboratory",
-    description:
-      "Same-day spectacle manufacturing with precision and quality guarantee",
-    icon: "⚗️",
+    description: "Glasses made in our lab",
+    icon: "⚙️",
     features: [
-      "Same-day manufacturing",
-      "Precision lens cutting",
-      "Quality control checks",
+      "Same-day making",
+      "Lens cutting",
+      "Checks in place",
       "Custom tinting available",
       "Repair services",
     ],
@@ -69,16 +66,15 @@ export const SERVICES = [
   },
   {
     id: 5,
-    title: "Sunglasses & Protection",
-    description:
-      "Premium sunglasses with UV protection and prescription options",
+    title: "Sunglasses",
+    description: "Sunglasses with UV protection",
     icon: "🕶️",
     features: [
-      "100% UV protection",
+      "UV protection",
       "Polarized lenses",
-      "Designer brands available",
+      "Brands available",
       "Prescription sunglasses",
-      "Sports & specialty frames",
+      "Sports frames",
     ],
     image: "/images/services/sunglasses.png",
     cta: "View Collection",
@@ -86,19 +82,18 @@ export const SERVICES = [
   },
   {
     id: 6,
-    title: "Specialized Eye Care",
-    description:
-      "Advanced services for complex vision needs and eye health conditions",
+    title: "Eye Care Services",
+    description: "Services for vision needs",
     icon: "🎯",
     features: [
-      "Low vision solutions",
-      "Diabetic eye screening",
-      "Pediatric optometry",
-      "Dry eye treatment",
+      "Low vision help",
+      "Diabetic eye checks",
+      "Children's eye care",
+      "Dry eye help",
       "Visual therapy",
     ],
     image: "/images/services/specialized-care.png",
-    cta: "Consult Specialist",
+    cta: "Consult Us",
     duration: "60-90 mins",
   },
 ] as const;
@@ -112,37 +107,35 @@ export const MEDICAL_AIDS = [
 ] as const;
 
 export const BRANCH_SERVICES = [
-  { branch: "Robinson House", services: "All Services + Main Laboratory" },
+  { branch: "Robinson House", services: "Services + Laboratory" },
   { branch: "Kensington", services: "Eye Tests, Frames, Contact Lenses" },
   {
     branch: "Honeydew Lifestyle Centre",
-    services: "Premium Services & Designer Frames",
+    services: "Services & Frames",
   },
-  { branch: "Chipinge Branch", services: "Full Service + Rural Outreach" },
-  { branch: "Chiredzi Branch", services: "Agricultural Community Specialists" },
+  { branch: "Chipinge Branch", services: "Services + Rural Outreach" },
+  { branch: "Chiredzi Branch", services: "Agricultural Community Services" },
 ] as const;
-
-// ... existing SERVICES, MEDICAL_AIDS, BRANCH_SERVICES ...
 
 export const BRANCH_FEATURES = [
   {
     icon: "⚡",
     title: "Same-Day Service",
-    description: "Spectacles ready in hours at all locations",
+    description: "Glasses made same-day",
   },
   {
     icon: "🔬",
-    title: "Advanced Equipment",
-    description: "State-of-the-art technology at every branch",
+    title: "Equipment",
+    description: "Eye test equipment available",
   },
   {
     icon: "👨‍⚕️",
-    title: "Expert Staff",
-    description: "Trained optometrists at each location",
+    title: "Staff",
+    description: "Staff to help you",
   },
   {
-    icon: "💳",
+    icon: "🏥",
     title: "Medical Aid Accepted",
-    description: "All major medical aids welcome everywhere",
+    description: "Medical aids accepted",
   },
 ] as const;

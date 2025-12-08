@@ -1,3 +1,4 @@
+// components/homepage/HeroCarousel.tsx - REFACTORED VERSION
 "use client";
 
 import { useState, useEffect } from "react";
@@ -16,30 +17,30 @@ export default function HeroCarousel() {
   const heroSlides = [
     {
       id: 1,
-      title: "Premium Eye Care",
-      subtitle: "For Everyone",
+      title: "Eye Care Services",
+      subtitle: "In Zimbabwe",
       description:
-        "Experience world-class eye care with same-day spectacles from our in-house laboratory. Quality vision solutions across Zimbabwe.",
+        "Eye tests, prescription glasses, and lens fittings at our branches across Zimbabwe.",
       image: HERO_CAROUSEL_IMAGES.eyeExam,
-      cta: "Book Eye Exam",
+      cta: "Book Eye Test",
     },
     {
       id: 2,
-      title: "Same-Day Spectacles",
-      subtitle: "Ready in Hours",
+      title: "Same-Day Glasses",
+      subtitle: "Made in our lab",
       description:
-        "Get your glasses made same-day in our advanced in-house laboratory. No more waiting weeks for your vision correction.",
+        "Get glasses made same-day in our lab. No waiting weeks for vision correction.",
       image: HERO_CAROUSEL_IMAGES.sameDaySpectacles,
       cta: "Browse Frames",
     },
     {
       id: 3,
-      title: "Expert Optometrists",
-      subtitle: "15+ Years Experience",
+      title: "Eye Tests",
+      subtitle: "At our branches",
       description:
-        "Our qualified optometrists provide comprehensive eye examinations using state-of-the-art diagnostic equipment.",
+        "Eye examinations using available equipment at our branches.",
       image: HERO_CAROUSEL_IMAGES.expertOptometrists,
-      cta: "Meet Our Team",
+      cta: "Our Services",
     },
   ];
 
@@ -122,7 +123,7 @@ export default function HeroCarousel() {
                 <div className="text-2xl font-bold text-[#00A6E6]">
                   {COMPANY_STATS.yearsExperience}
                 </div>
-                <div className="text-sm text-[#B9C4CC]">Years Experience</div>
+                <div className="text-sm text-[#B9C4CC]">Years operating</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-[#00A6E6]">
@@ -134,7 +135,7 @@ export default function HeroCarousel() {
                 <div className="text-2xl font-bold text-[#00A6E6]">
                   {COMPANY_STATS.sameDayService}
                 </div>
-                <div className="text-sm text-[#B9C4CC]">Day Service</div>
+                <div className="text-sm text-[#B9C4CC]">Day service</div>
               </div>
             </div>
           </div>

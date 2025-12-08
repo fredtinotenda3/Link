@@ -1,3 +1,4 @@
+// app\services\page.tsx - REFACTORED VERSION
 "use client";
 import Navigation from "@/components/Navigation";
 import ServicesHero from "@/components/services/ServicesHero";
@@ -21,7 +22,7 @@ export default function Services() {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <h4 className="text-2xl font-bold text-[#F2F5F9] mb-4">
-                  ✅ Accepted Medical Aids
+                  ✓ Accepted Medical Aids
                 </h4>
                 <div className="flex flex-wrap gap-3">
                   {MEDICAL_AIDS.slice(0, 3).map((aid, index) => (
@@ -39,10 +40,10 @@ export default function Services() {
               </div>
               <div className="text-center md:text-right">
                 <h4 className="text-2xl font-bold text-[#00A6E6] mb-3">
-                  📍 5 Convenient Branches
+                  📍 5 Branches in Zimbabwe
                 </h4>
                 <p className="text-[#B9C4CC] text-lg">
-                  Same great service across Zimbabwe
+                  Services available across Zimbabwe
                 </p>
               </div>
             </div>
@@ -58,10 +59,10 @@ export default function Services() {
         <div className="container-premium">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Services Across All Branches
+              Services at All Branches
             </h2>
             <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
-              Same premium quality and expert care at all 5 locations
+              Eye care services at all 5 locations
             </p>
           </div>
 
@@ -87,10 +88,10 @@ export default function Services() {
         <div className="container-premium">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Loved by Our Patients
+              What People Say
             </h2>
             <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
-              Real stories from real people across Zimbabwe
+              Feedback from people across Zimbabwe
             </p>
           </div>
 
@@ -106,7 +107,7 @@ export default function Services() {
                     <div className="flex justify-center mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <span key={i} className="text-yellow-400 text-lg">
-                          ⭐
+                          ★
                         </span>
                       ))}
                     </div>
@@ -134,27 +135,26 @@ export default function Services() {
         <div className="container-premium">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Ready to See Clearly?
+              Ready for an Eye Test?
             </h2>
             <p className="text-xl text-[#B9C4CC] mb-8">
-              Experience the Link Optical difference - where expert care meets
-              same-day service.
+              Book an appointment for eye tests and glasses at our branches.
             </p>
 
             {/* Final Assurance */}
             <div className="bg-white/10 rounded-xl p-6 mb-8 border border-white/20">
               <div className="grid md:grid-cols-3 gap-4 text-sm">
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-[#00A6E6]">✅</span>
+                  <span className="text-[#00A6E6]">✓</span>
                   <span className="text-[#F2F5F9]">Free Consultation</span>
                 </div>
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-[#00A6E6]">✅</span>
+                  <span className="text-[#00A6E6]">✓</span>
                   <span className="text-[#F2F5F9]">Medical Aid Accepted</span>
                 </div>
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-[#00A6E6]">✅</span>
-                  <span className="text-[#F2F5F9]">Quality Guarantee</span>
+                  <span className="text-[#00A6E6]">✓</span>
+                  <span className="text-[#F2F5F9]">Services available</span>
                 </div>
               </div>
             </div>
@@ -168,8 +168,8 @@ export default function Services() {
               </button>
             </div>
             <p className="text-[#B9C4CC] text-sm mt-4">
-              ⚡ Same-day service available • 💳 All medical aids accepted • 📍
-              5 locations nationwide
+              ⚡ Same-day service available • 🏥 All medical aids accepted • 📍
+              5 locations in Zimbabwe
             </p>
           </div>
         </div>
