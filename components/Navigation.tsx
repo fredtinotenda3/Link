@@ -4,10 +4,35 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
 
+// Simple admin check function
+const isAdminUser = (email: string | null | undefined): boolean => {
+  if (!email) return false;
+  const adminEmails = [
+    "admin@linkoptical.co.zw",
+    "richard@linkoptical.co.zw",
+    "bismark@linkoptical.co.zw",
+    "blessedmakwara12@gmail.com", // Add this line
+  ];
+  return adminEmails.includes(email.toLowerCase());
+};
+
 export default function Navigation() {
   const { data: session, status } = useSession();
   const isLoading = status === "loading";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+
+  const isAdmin = session?.user?.email
+    ? isAdminUser(session.user.email)
+    : false;
+
+  const navigationLinks = [
+    { href: "/", label: "Home" },
+    { href: "/services", label: "Services" },
+    { href: "/branches", label: "Branches" },
+    { href: "/about", label: "About" },
+    { href: "/contact", label: "Contact" },
+  ];
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -17,13 +42,9 @@ export default function Navigation() {
     setIsMobileMenuOpen(false);
   };
 
-  const navigationLinks = [
-    { href: "/", label: "Home" },
-    { href: "/services", label: "Services" },
-    { href: "/branches", label: "Branches" },
-    { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
-  ];
+  const toggleUserMenu = () => {
+    setShowUserMenu(!showUserMenu);
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-[#001F3F]/90 backdrop-blur-md border-b border-[#2C3E50]">
@@ -64,24 +85,42 @@ export default function Navigation() {
                 <Link href="/book" className="btn-primary">
                   Book Appointment
                 </Link>
-                <div className="relative group">
-                  <button className="btn-secondary flex items-center gap-2">
+                <div className="relative">
+                  <button
+                    onClick={toggleUserMenu}
+                    className="btn-secondary flex items-center gap-2"
+                  >
                     👤 {session.user.firstName}
                   </button>
-                  <div className="absolute right-0 top-full mt-2 w-48 bg-white/5 backdrop-blur-lg border border-white/10 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-                    <Link
-                      href="/profile"
-                      className="block px-4 py-3 text-[#F2F5F9] hover:bg-white/10 transition-colors"
-                    >
-                      My Profile
-                    </Link>
-                    <button
-                      onClick={() => signOut()}
-                      className="block w-full text-left px-4 py-3 text-[#F2F5F9] hover:bg-white/10 transition-colors border-t border-white/10"
-                    >
-                      Sign Out
-                    </button>
-                  </div>
+                  {showUserMenu && (
+                    <div className="absolute right-0 top-full mt-2 w-48 bg-white/5 backdrop-blur-lg border border-white/10 rounded-lg shadow-2xl z-50">
+                      <Link
+                        href="/profile"
+                        className="block px-4 py-3 text-[#F2F5F9] hover:bg-white/10 transition-colors"
+                        onClick={() => setShowUserMenu(false)}
+                      >
+                        My Profile
+                      </Link>
+                      {isAdmin && (
+                        <Link
+                          href="/admin"
+                          className="block px-4 py-3 text-[#F2F5F9] hover:bg-white/10 transition-colors border-t border-white/10"
+                          onClick={() => setShowUserMenu(false)}
+                        >
+                          📊 Admin Dashboard
+                        </Link>
+                      )}
+                      <button
+                        onClick={() => {
+                          setShowUserMenu(false);
+                          signOut();
+                        }}
+                        className="block w-full text-left px-4 py-3 text-[#F2F5F9] hover:bg-white/10 transition-colors border-t border-white/10"
+                      >
+                        Sign Out
+                      </button>
+                    </div>
+                  )}
                 </div>
               </>
             ) : (
@@ -157,20 +196,29 @@ export default function Navigation() {
                     >
                       Book Appointment
                     </Link>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-2">
                       <Link
                         href="/profile"
                         onClick={closeMobileMenu}
-                        className="btn-secondary text-center py-2"
+                        className="block w-full btn-secondary text-center py-2"
                       >
                         My Profile
                       </Link>
+                      {isAdmin && (
+                        <Link
+                          href="/admin"
+                          onClick={closeMobileMenu}
+                          className="block w-full btn-secondary text-center py-2 bg-purple-600 hover:bg-purple-700"
+                        >
+                          📊 Admin Dashboard
+                        </Link>
+                      )}
                       <button
                         onClick={() => {
                           closeMobileMenu();
                           signOut();
                         }}
-                        className="btn-secondary text-center py-2"
+                        className="block w-full btn-secondary text-center py-2"
                       >
                         Sign Out
                       </button>
