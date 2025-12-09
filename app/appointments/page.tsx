@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import Navigation from "@/components/Navigation";
+
 import AppointmentsHistory from "@/components/AppointmentsHistory";
 
 export default async function AppointmentsPage() {
@@ -12,8 +12,6 @@ export default async function AppointmentsPage() {
 
   return (
     <div className="min-h-screen">
-      <Navigation />
-
       <section className="py-20 bg-linear-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
         <div className="container-premium">
           <div className="max-w-6xl mx-auto">

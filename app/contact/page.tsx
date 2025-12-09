@@ -1,5 +1,5 @@
 // app\contact\page.tsx - REFACTORED VERSION
-import Navigation from "@/components/Navigation";
+
 // ✅ Specific constant imports
 import { BRANCHES } from "@/constants/branches";
 import { CONTACT_METHODS, FAQS } from "@/constants/contact";
@@ -9,8 +9,6 @@ import { Branch, ContactMethod, FAQ } from "@/types";
 export default function Contact() {
   return (
     <div className="min-h-screen">
-      <Navigation />
-
       {/* Hero Section */}
       <section className="py-20 bg-linear-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
         <div className="container-premium">
@@ -24,8 +22,8 @@ export default function Contact() {
             </h1>
 
             <p className="text-xl md:text-2xl text-[#B9C4CC] mb-8 leading-relaxed">
-              We're here to help with eye care needs. Contact us through any
-              channel for help with appointments and services.
+              We&apos;re here to help with eye care needs. Contact us through
+              any channel for help with appointments and services.
             </p>
 
             {/* Quick Contact Stats */}
@@ -61,7 +59,7 @@ export default function Contact() {
               Ways to Contact Us
             </h2>
             <p className="text-xl text-[#B9C4CC] max-w-2xl mx-auto">
-              Choose the way that works for you. We're ready to help.
+              Choose the way that works for you. We&apos;re ready to help.
             </p>
           </div>
 
@@ -104,7 +102,7 @@ export default function Contact() {
               </h2>
               <p className="text-[#B9C4CC] mb-8">
                 Have questions about services? Need help with an appointment?
-                Fill out the form below and we'll reply.
+                Fill out the form below and we&apos;ll reply.
               </p>
 
               <form className="space-y-6">

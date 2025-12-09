@@ -1,12 +1,10 @@
 // app\frames\page.tsx - REFACTORED VERSION
-import Navigation from "@/components/Navigation";
+
 import FramesGallery from "@/components/FramesGallery";
 
 export default function FramesPage() {
   return (
     <div className="min-h-screen">
-      <Navigation />
-
       <section className="py-20 bg-gradient-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
         <div className="container-premium">
           <div className="text-center mb-16">

@@ -1,7 +1,7 @@
 // app\about\page.tsx - OPTIMIZED VERSION
 import Link from "next/link";
 import Image from "next/image";
-import Navigation from "@/components/Navigation";
+
 import { TEAM_MEMBERS } from "@/constants/team";
 import {
   COMPANY_TIMELINE,
@@ -15,8 +15,6 @@ import { TeamMember, TimelineItem, CompanyValue } from "@/types";
 export default function About() {
   return (
     <div className="min-h-screen">
-      <Navigation />
-
       {/* Hero Section - OPTIMIZED */}
       <section className="py-20 bg-linear-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
         <div className="container-premium">

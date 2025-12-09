@@ -1,6 +1,6 @@
 // app\branches\page.tsx - COMPLETE REFACTORED VERSION
 import Link from "next/link";
-import Navigation from "@/components/Navigation";
+
 import Image from "next/image";
 // ✅ Specific constant imports
 import { BRANCHES } from "@/constants/branches";
@@ -21,8 +21,6 @@ export default function Branches() {
 
   return (
     <div className="min-h-screen">
-      <Navigation />
-
       {/* Hero Section */}
       <section className="py-20 bg-linear-to-br from-[#001F3F] via-[#002851] to-[#0077B6]">
         <div className="container-premium">
