@@ -8,9 +8,7 @@ import { useState } from "react";
 const isAdminUser = (email: string | null | undefined): boolean => {
   if (!email) return false;
   const adminEmails = [
-    "admin@linkoptical.co.zw",
-    "richard@linkoptical.co.zw",
-    "bismark@linkoptical.co.zw",
+    "fredtinotenda3@gmail.com",
     "blessedmakwara12@gmail.com", // Add this line
   ];
   return adminEmails.includes(email.toLowerCase());
