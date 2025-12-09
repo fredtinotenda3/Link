@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 // List of admin emails (in production, you'd store this in a database)
 const ADMIN_EMAILS = [
   "admin@linkoptical.co.zw",
-  "richard@linkoptical.co.zw",
+  "fredtinotenda3@gmail.com",
   "blessedmakwara12@gmail.com",
 ];
 
