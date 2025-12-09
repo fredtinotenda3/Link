@@ -1,6 +1,6 @@
 // app\services\page.tsx - REFACTORED VERSION
 "use client";
-import Navigation from "@/components/Navigation";
+
 import ServicesHero from "@/components/services/ServicesHero";
 import ServicesCarousel from "@/components/services/ServicesCarousel";
 import { MEDICAL_AIDS, BRANCH_FEATURES } from "@/constants/services";
@@ -10,8 +10,6 @@ import { BranchFeature, Testimonial } from "@/types";
 export default function Services() {
   return (
     <div className="min-h-screen">
-      <Navigation />
-
       {/* NEW FULL-WIDTH HERO BANNER */}
       <ServicesHero />
 
